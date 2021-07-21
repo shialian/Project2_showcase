@@ -8,14 +8,14 @@ public class UIFunction : MonoBehaviour
     public GameObject menu;
     public GameObject previous;
     public GameObject[] buttons;
-    public GameObject minimap;
+    public GameObject guideMap;
     public GameObject stamp;
 
     private void Awake()
     {
         previous.SetActive(false);
         HideButtons();
-        minimap.SetActive(false);
+        guideMap.SetActive(false);
         stamp.SetActive(false);
     }
 
@@ -26,9 +26,9 @@ public class UIFunction : MonoBehaviour
         previous.SetActive(true);
     }
 
-    public void ShowMinimap()
+    public void ShowGuideMap()
     {
-        minimap.SetActive(true);
+        guideMap.SetActive(true);
         HideButtons();
     }
 
@@ -40,10 +40,10 @@ public class UIFunction : MonoBehaviour
 
     public void BeckWard()
     {
-        if(minimap.activeSelf)
+        if(guideMap.activeSelf)
         {
             ShowAllButtons();
-            minimap.SetActive(false);
+            guideMap.SetActive(false);
         }
         else if (stamp.activeSelf)
         {
