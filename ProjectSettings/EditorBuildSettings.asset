@@ -21,7 +21,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Character Selection.unity
     guid: 7ed9cd7c1e593f8429e3890dac6f6f02
   - enabled: 0
-    path: Assets/Scenes/For Test/Playing.unity
+    path: Assets/On Testing/Scene/Playing.unity
     guid: 4c0d38064b6fc5449a9ae6dc65192cee
   - enabled: 0
     path: Assets/Scenes/Theme park.unity

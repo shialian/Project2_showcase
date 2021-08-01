@@ -25,10 +25,6 @@ public class VRAnimatorController : MonoBehaviour
         // Get current velocity
         Vector3 velocity = character.velocity;
 
-        // Set animator value
-        float previousDirectionX = animator.GetFloat("DirectionX");
-        float previousDirectionY = animator.GetFloat("DirectionY");
-
         animator.SetBool("isMoving", velocity.magnitude > speedThreshold);
         animator.SetFloat("DirectionX", velocity.x);
         animator.SetFloat("DirectionY", velocity.z);
