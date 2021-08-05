@@ -6,10 +6,11 @@
 Shader "Custom/HeartGlowShader"
 {
     Properties{
-        _Color("Color", Color) = (1,0.6,0,1)
+        _Color("Color", Color) = (1, 1,0,1)
         [HDR]_GlowColor("Glow Color", Color) = (1,1,0,1)
         _Strength("Glow Strength", Range(10.0, 1.0)) = 2.0
         _GlowRange("Glow Range", Range(0.1,1)) = 0.6
+        _Alpha("Alpha", Range(0,1)) = 1
        _MainTex("Texture", 2D) = "white" {}
     }
 
@@ -18,7 +19,10 @@ Shader "Custom/HeartGlowShader"
 
 
             Pass {
-                Tags { "LightMode" = "ForwardBase" }
+                Tags { "LightMode" = "ForwardBase" "Queue" = "Transparent" "RenderType" = "Transparent"}
+                // Cull Front
+                ZWrite Off
+                Blend SrcAlpha OneMinusSrcAlpha
 
                 CGPROGRAM
 
@@ -26,13 +30,14 @@ Shader "Custom/HeartGlowShader"
                 #pragma fragment frag
 
                 float4 _Color;
+                float _Alpha;
 
                 float4 vert(float4 vertexPos : POSITION) : SV_POSITION {
                     return UnityObjectToClipPos(vertexPos);
                 }
 
                 float4 frag(void) : COLOR {
-                    return _Color;
+                    return float4(_Color.xyz, _Alpha);
                 }
 
                 ENDCG
@@ -76,7 +81,7 @@ Shader "Custom/HeartGlowShader"
                     o.position = UnityObjectToClipPos(pos);
                     float strength = abs(dot(viewDirection, normalDirection));
                     float opacity = pow(strength, _Strength);
-                    float4 col = float4(_GlowColor.xyz, opacity/5);
+                    float4 col = float4(_GlowColor.xyz, opacity / 5);
                     o.col = col;
                 
                     return o;

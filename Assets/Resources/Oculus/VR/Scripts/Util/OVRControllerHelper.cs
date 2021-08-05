@@ -77,7 +77,7 @@ public class OVRControllerHelper : MonoBehaviour
 			case OVRPlugin.SystemHeadset.Rift_CV1:
 				activeControllerType = ControllerType.Rift;
 				break;
-			case OVRPlugin.SystemHeadset.Oculus_Quest_2:
+			case OVRPlugin.SystemHeadset.Oculus_Link_Quest_2:
 				activeControllerType = ControllerType.Quest2;
 				break;
 			default:

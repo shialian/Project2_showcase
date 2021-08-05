@@ -40,7 +40,6 @@ public class VRRig : MonoBehaviour
         Vector3 targetForward = Vector3.ProjectOnPlane(head.vrTarget.forward, Vector3.up).normalized;
         if (Vector3.Dot(transform.forward, targetForward) <= 0)
         {
-            Debug.LogError("進來了");
             targetForward *= -1f;
         }
         transform.forward = Vector3.Lerp(transform.forward, targetForward, turnSmoothness);
