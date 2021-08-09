@@ -23,15 +23,15 @@ public class ReadmeEditor : Editor {
 	{
 		if (!SessionState.GetBool(kShowedReadmeSessionStateName, false ))
 		{
-			var readme = SelectReadme();
-			SessionState.SetBool(kShowedReadmeSessionStateName, true);
-			
-			if (readme && !readme.loadedLayout)
-			{
-				LoadLayout();
-				readme.loadedLayout = true;
-			}
-		} 
+            var readme = SelectReadme();
+            SessionState.SetBool(kShowedReadmeSessionStateName, true);
+
+            if (readme && !readme.loadedLayout)
+            {
+                LoadLayout();
+                readme.loadedLayout = true;
+            }
+        } 
 	}
 	
 	static void LoadLayout()
@@ -56,7 +56,7 @@ public class ReadmeEditor : Editor {
 		}
 		else
 		{
-			Debug.Log("Couldn't find a readme");
+			//Debug.Log("Couldn't find a readme");
 			return null;
 		}
 	}
