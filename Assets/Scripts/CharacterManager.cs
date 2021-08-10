@@ -5,14 +5,26 @@ using Mirror;
 
 public class CharacterManager : NetworkBehaviour
 {
-    public CharacterSelected[] characters;
+    public static CharacterManager singleton;
     public GameObject playButton;
+    public SyncList<bool> selected = new SyncList<bool>();
+    public SyncList<NetworkIdentity> selectedByPlayer = new SyncList<NetworkIdentity>();
 
-    private int count;
+    private void Awake()
+    {
+        playButton.SetActive(false);
+        singleton = this;
+    }
 
     private void Start()
     {
-        playButton.SetActive(false);
+        if (isServer)
+        {
+            selected.Add(false);
+            selected.Add(false);
+            selectedByPlayer.Add(null);
+            selectedByPlayer.Add(null);
+        }
     }
 
     private void Update()
@@ -22,15 +34,37 @@ public class CharacterManager : NetworkBehaviour
 
     private void SelectionManagement()
     {
-        count = 0;
-        for(int i = 0; i < characters.Length; i++)
-        {
-            if (characters[i].selected)
-                count++;
-        }
-        if(count == characters.Length)
+        if(selected[0] && selected[1])
         {
             playButton.SetActive(true);
+        }
+        else
+        {
+            playButton.SetActive(false);
+        }
+    }
+
+    [Command(requiresAuthority = false)]
+    public void EditSelection(int id, NetworkIdentity localPlayer)
+    {
+        if (selected[id] && selectedByPlayer[id] != localPlayer)
+            return;
+        selected[id] = !selected[id];
+        if (selected[id])
+        {
+            for(int i =0; i < selectedByPlayer.Count; i++)
+            {
+                if (selectedByPlayer[i] == localPlayer)
+                {
+                    selectedByPlayer[i] = null;
+                    selected[i] = false;
+                }
+            }
+            selectedByPlayer[id] = localPlayer;
+        }
+        else
+        {
+            selectedByPlayer[id] = null;
         }
     }
 }

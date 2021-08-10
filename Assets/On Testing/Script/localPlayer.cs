@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 
-public class localPlayer : NetworkBehaviour
+public class LocalPlayer : NetworkBehaviour
 {
     public GameObject cameraAnchor;
     public GameObject character;

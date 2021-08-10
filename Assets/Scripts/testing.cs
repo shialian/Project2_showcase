@@ -11,12 +11,12 @@ public class testing : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.A))
         {
             trackingSpace.SetActive(true);
-            net.Start_Server();
+            //net.Start_Server();
         }
         else if (Input.GetKeyDown(KeyCode.S))
         {
             trackingSpace.SetActive(true);
-            net.Start_Cient();
+            //net.Start_Cient();
         }
     }
 }

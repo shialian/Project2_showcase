@@ -6,35 +6,14 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 0
-    path: Assets/Scripts/Network_Test/Main.unity
-    guid: 5321ef8c1fdd9784d836840d135cde75
-  - enabled: 0
-    path: Assets/Scripts/Network_Test/Scene1.unity
-    guid: ee389251c935d8d49b9c549d186b4e86
-  - enabled: 0
     path: Assets/Resources/Oculus/VR/Scenes/ControllerModels.unity
     guid: 39cfe7aa0a2d46c47994d8d0308ec663
-  - enabled: 0
-    path: Assets/Network/Develop_scene.unity
-    guid: de6bcd29a92cc2f4d9bd52318e594f8c
   - enabled: 1
     path: Assets/Scenes/Character Selection.unity
     guid: 7ed9cd7c1e593f8429e3890dac6f6f02
   - enabled: 0
     path: Assets/On Testing/Scene/PlayingUI Test.unity
     guid: 4c0d38064b6fc5449a9ae6dc65192cee
-  - enabled: 0
-    path: Assets/Scenes/Theme park.unity
-    guid: 6c5afed758d9dde4d96232ce7a139e63
-  - enabled: 0
-    path: Assets/Scenes/test.unity
-    guid: 17f43f7e2844f9b429ea7dd3b01e32d8
-  - enabled: 0
-    path: Assets/Scenes/tmp park.unity
-    guid: 8bf865898b2e3424080b97148704de1e
-  - enabled: 0
-    path: Assets/Scenes/For Test/Body in VR.unity
-    guid: 3f83218d692953d48ab928f687f622b5
   - enabled: 1
     path: Assets/Scenes/Theme.unity
     guid: bbb759b971c9d224299fe699bfe50a8c

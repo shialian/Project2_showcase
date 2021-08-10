@@ -24,6 +24,7 @@ public class GameManager : NetworkBehaviour
         GM = this;
         connectionId = -1;
         loadScene = false;
+        Debug.LogError(NetworkClient.ready);
     }
 
     private void Update()
@@ -37,7 +38,7 @@ public class GameManager : NetworkBehaviour
     public void LoadSceneByName(string name)
     {
         loadScene = false;
-        networkManager.ChangeScene(name);
+        //networkManager.ChangeScene(name);
     }
 
     
