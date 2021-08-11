@@ -55,7 +55,7 @@ public class DropTowerControl : NetworkBehaviour
         if (activedevice.isGrabbed == true)
         {
             int TriggerPlayerID = activedevice.grabbedBy.transform.root.gameObject.GetComponent<Player>().PlayerID;
-            GameManager.GM.SendAnotherPlayer(TriggerPlayerID, Facility, playerAnchor.localPosition);
+            GameManager.singleton.SendAnotherPlayer(TriggerPlayerID, Facility, playerAnchor.localPosition);
             active = 1;
             chair.transform.position = start_position;
             energybar.transform.localScale = energybarlength;
@@ -64,7 +64,7 @@ public class DropTowerControl : NetworkBehaviour
         if (reward.isGrabbed == true)
         {
             int TriggerPlayerID = reward.grabbedBy.transform.root.gameObject.GetComponentInChildren<Player>().PlayerID;
-            GameManager.GM.SendPlayerBack(TriggerPlayerID, BackPosition, is_origin);
+            GameManager.singleton.SendPlayerBack(TriggerPlayerID, BackPosition, is_origin);
             PassGame();
             if (color_DropTower_UI != null)
                 color_DropTower_UI.SetActive(true);
@@ -133,7 +133,7 @@ public class DropTowerControl : NetworkBehaviour
                 TriggerPlayerID = PlayerList[i].PlayerID;
             }
         }
-        GameManager.GM.SendPlayerBack(TriggerPlayerID, BackPosition, is_origin);
+        GameManager.singleton.SendPlayerBack(TriggerPlayerID, BackPosition, is_origin);
         PassGame();
         if (color_DropTower_UI != null)
             color_DropTower_UI.SetActive(true);

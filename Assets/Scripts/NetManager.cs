@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using System;
+using System.Collections.Generic;
 using Mirror;
 
 /*
@@ -10,6 +11,9 @@ using Mirror;
 
 public class NetManager : NetworkManager
 {
+    public List<int> connectionID = new List<int>();
+    private bool enterMainScene;
+
     #region Unity Callbacks
 
     public override void OnValidate()
@@ -23,6 +27,7 @@ public class NetManager : NetworkManager
     /// </summary>
     public override void Awake()
     {
+        enterMainScene = false;
         base.Awake();
     }
 
@@ -84,6 +89,7 @@ public class NetManager : NetworkManager
     public override void ServerChangeScene(string newSceneName)
     {
         base.ServerChangeScene(newSceneName);
+        enterMainScene = true;
     }
 
     /// <summary>
@@ -127,7 +133,10 @@ public class NetManager : NetworkManager
     /// <para>Unity calls this on the Server when a Client connects to the Server. Use an override to tell the NetworkManager what to do when a client connects to the server.</para>
     /// </summary>
     /// <param name="conn">Connection from client.</param>
-    public override void OnServerConnect(NetworkConnection conn) { }
+    public override void OnServerConnect(NetworkConnection conn)
+    {
+        connectionID.Add(conn.connectionId);
+    }
 
     /// <summary>
     /// Called on the server when a client is ready.
@@ -146,6 +155,14 @@ public class NetManager : NetworkManager
     /// <param name="conn">Connection from client.</param>
     public override void OnServerAddPlayer(NetworkConnection conn)
     {
+        if (enterMainScene) {
+            for (int i = 0; i < connectionID.Count; i++) {
+                if (connectionID[i] == conn.connectionId) {
+                    playerPrefab = spawnPrefabs[GameManager.singleton.spawnCharcterID[i]];
+                    break;
+                }
+            }
+        }
         base.OnServerAddPlayer(conn);
     }
 
@@ -156,6 +173,7 @@ public class NetManager : NetworkManager
     /// <param name="conn">Connection from client.</param>
     public override void OnServerDisconnect(NetworkConnection conn)
     {
+
         base.OnServerDisconnect(conn);
     }
 

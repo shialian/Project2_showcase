@@ -5,9 +5,8 @@ using Mirror;
 
 public class GameManager : NetworkBehaviour
 {
-    public int playerID = -1;
     public int connectionId;
-    public static GameManager GM;
+    public static GameManager singleton;
     public NetManager networkManager;
     public SyncDictionary<int, int> connection = new SyncDictionary<int, int>();
 
@@ -18,58 +17,39 @@ public class GameManager : NetworkBehaviour
 
     private List<int> keys;
 
+    /* new added start */
+    public SyncList<int> spawnCharcterID = new SyncList<int>();
+    public int playerID;
+    private bool playerAdded;
+    /* new added end*/
+
+    private void Awake()
+    {
+        singleton = this;
+        playerAdded = false;
+        playerID = -1;
+    }
+
     private void Start()
     {
         DontDestroyOnLoad(this);
-        GM = this;
         connectionId = -1;
         loadScene = false;
-        Debug.LogError(NetworkClient.ready);
     }
 
     private void Update()
     {
-        if (loadScene && isServer)
+        if (playerAdded == false && NetworkClient.ready)
         {
-            LoadSceneByName(sceneName);
+            NewPlayerAdded();
+            playerAdded = true;
+        }
+        if(playerID == -1)
+        {
+            Invoke("SetPlayerID", 0.1f);
         }
     }
 
-    public void LoadSceneByName(string name)
-    {
-        loadScene = false;
-        //networkManager.ChangeScene(name);
-    }
-
-    
-    public int GetPlayerID()
-    {
-        return playerID;
-    }
-
-    public void SetPlayerID(int ID)
-    {
-        playerID = ID;
-    }
-
-    [Command(requiresAuthority = false)]
-    public void SetPlayerIDByConnection(int conn, int id)
-    {
-        if (connection.ContainsKey(conn) == false)
-        {
-            connection.Add(conn, id);
-        }
-        else
-        {
-            connection[conn] = id;
-        }
-    }
-
-    public void SetConnectionID()
-    {
-        keys = new List<int>(connection.Keys);
-        connectionId = keys[keys.Count - 1];
-    }
     // send another player who don't trigger the game to facility
     public void SendAnotherPlayer(int tirggerPlayerID,GameObject facility,Vector3 position){
         Player[] PlayerList = FindObjectsOfType<Player>();
@@ -102,4 +82,25 @@ public class GameManager : NetworkBehaviour
             SendTarget.CmdDetach(position,is_origin);
         }
     }
+
+    /* new added start */
+
+    [Command(requiresAuthority = false)]
+    public void NewPlayerAdded()
+    {
+        spawnCharcterID.Add(0);
+    }
+
+    private void SetPlayerID()
+    {
+        playerID = spawnCharcterID.Count - 1;
+    }
+
+    [Command(requiresAuthority = false)]
+    public void LoadSceneByName(string name)
+    {
+        NetManager.singleton.ServerChangeScene(name);
+    }
+
+    /* new added end */
 }

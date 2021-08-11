@@ -153,7 +153,7 @@ public class OVRPlayerController : MonoBehaviour
 	{
 		// Add eye-depth as a camera offset from the player controller
 		var p = CameraRig.transform.localPosition;
-		p.z = OVRManager.profile.eyeDepth;
+		//p.z = OVRManager.profile.eyeDepth;
 		CameraRig.transform.localPosition = p;
 	}
 

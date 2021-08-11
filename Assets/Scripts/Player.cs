@@ -19,6 +19,7 @@ public class Player : NetworkBehaviour
     Direction left_dir;
     Direction right_dir;
     float angle = 0;
+
     void Start()
     {
         GetController();

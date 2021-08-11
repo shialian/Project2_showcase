@@ -69,14 +69,14 @@ public class Gondora : NetworkBehaviour
         if (activedevice.isGrabbed == true)
         {
             int TriggerPlayerID = activedevice.grabbedBy.transform.root.gameObject.GetComponent<Player>().PlayerID;
-            GameManager.GM.SendAnotherPlayer(TriggerPlayerID,Facility,playerAnchor.localPosition);
+            GameManager.singleton.SendAnotherPlayer(TriggerPlayerID,Facility,playerAnchor.localPosition);
             active = 1;
         }
 
         if (reward.isGrabbed == true)
         {
             int TriggerPlayerID = reward.grabbedBy.transform.root.gameObject.GetComponentInChildren<Player>().PlayerID;
-            GameManager.GM.SendPlayerBack(TriggerPlayerID, BackPosition, is_origin);
+            GameManager.singleton.SendPlayerBack(TriggerPlayerID, BackPosition, is_origin);
             PassGame();
             GameEnd();
             //goldenFinger = false;
@@ -125,7 +125,7 @@ public class Gondora : NetworkBehaviour
                 TriggerPlayerID = PlayerList[i].PlayerID;
             }
         }
-        GameManager.GM.SendPlayerBack(TriggerPlayerID, BackPosition, is_origin);
+        GameManager.singleton.SendPlayerBack(TriggerPlayerID, BackPosition, is_origin);
         PassGame();
         GameEnd();
     }
