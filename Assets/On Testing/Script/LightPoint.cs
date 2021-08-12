@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class LightPoint : MonoBehaviour
 {
     public float vibrationTime = 2.0f;
-    public Image loadingBar;
+    public Image loadingCircle;
     public Transform FX;
 
     [SerializeField]
@@ -16,15 +16,20 @@ public class LightPoint : MonoBehaviour
     private void Awake()
     {
         lookatTarget = GameObject.Find("CenterEyeAnchor").transform;
-        loadingBar.fillAmount = 0;
+        loadingCircle.fillAmount = 0;
     }
 
     private void FixedUpdate()
     {
-        if(setVirbration && loadingBar.fillAmount < 1)
+        if(setVirbration && loadingCircle.fillAmount < 1)
         {
-            loadingBar.fillAmount += Time.fixedDeltaTime / vibrationTime;
-            FX.localRotation = Quaternion.Euler(0, 180, loadingBar.fillAmount * 360f);
+            loadingCircle.fillAmount += Time.fixedDeltaTime / vibrationTime;
+            FX.localRotation = Quaternion.Euler(0, 180, loadingCircle.fillAmount * 360f);
+        }
+        else if(loadingCircle.fillAmount >= 1)
+        {
+            transform.parent.GetComponent<Task>().CheckTaskComplete();
+            this.gameObject.SetActive(false);
         }
     }
 
@@ -32,7 +37,7 @@ public class LightPoint : MonoBehaviour
     {
         setVirbration = true;
         transform.LookAt(lookatTarget.position);
-        if (loadingBar.fillAmount < 1)
+        if (loadingCircle.fillAmount < 1)
         {
             for (int i = 0; i <= vibrationTime; i++)
             {
@@ -43,7 +48,7 @@ public class LightPoint : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (loadingBar.fillAmount >= 1)
+        if (loadingCircle.fillAmount >= 1)
         {
             setVirbration = false;
             StopVirbration();

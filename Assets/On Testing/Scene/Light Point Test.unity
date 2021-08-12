@@ -5540,7 +5540,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vibrationTime: 7
-  loadingBar: {fileID: 470198123}
+  loadingCircle: {fileID: 0}
   FX: {fileID: 1577515674}
   lookatTarget: {fileID: 0}
 --- !u!4 &19685770275143947
