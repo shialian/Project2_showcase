@@ -42,6 +42,7 @@ namespace CurvedUI {
             if (CurvedUIInputModule.ControlMethod != CurvedUIInputModule.CUIControlMethod.OCULUSVR) return;
 
             activeCont = OVRInput.GetActiveController();
+            //Debug.LogError(activeCont);
 
             if (!initialized && CurvedUIInputModule.Instance.OculusTouchUsedControllerTransform != null)
             {

@@ -1,9 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using CurvedUI;
 using Mirror;
 
-public class LocalPlayer : MonoBehaviour//NetworkBehaviour
+public class LocalPlayer : NetworkBehaviour
 {
     public GameObject cameraAnchor;
     public GameObject character;
@@ -12,14 +13,11 @@ public class LocalPlayer : MonoBehaviour//NetworkBehaviour
     [SerializeField]
     private GameObject UI;
     private GameObject laserBeam;
+    private CurvedUIInputModule cuiInputModule;
 
     private void Start()
     {
-        UI = GameObject.Find("UI");
-        UI.SetActive(false);
-        laserBeam = GameObject.Find("LaserBeam");
-        laserBeam.SetActive(false);
-        /*if (!isLocalPlayer)
+        if (!isLocalPlayer)
         {
             GetComponent<OVRCameraRig>().enabled = false;
             GetComponent<OVRHeadsetEmulator>().enabled = false;
@@ -27,7 +25,16 @@ public class LocalPlayer : MonoBehaviour//NetworkBehaviour
             character.GetComponent<VRAnimatorController>().enabled = false;
             cameraAnchor.SetActive(false);
             this.enabled = false;
-        }*/
+        }
+        else
+        {
+            UI = GameObject.Find("UI");
+            UI.SetActive(false);
+            laserBeam = GameObject.Find("LaserBeam");
+            laserBeam.SetActive(false);
+            cuiInputModule = GameObject.Find("EventSystem").GetComponent<CurvedUIInputModule>();
+            cuiInputModule.OculusCameraRig = GetComponent<OVRCameraRig>();
+        }
     }
 
     private void Update()

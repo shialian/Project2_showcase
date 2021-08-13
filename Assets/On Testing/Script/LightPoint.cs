@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Mirror;
 
 public class LightPoint : MonoBehaviour
 {
@@ -10,27 +11,35 @@ public class LightPoint : MonoBehaviour
     public Transform FX;
 
     [SerializeField]
-    private Transform lookatTarget;
+    private Transform lookatTarget = null;
     private bool setVirbration = false;
 
     private void Awake()
     {
-        lookatTarget = GameObject.Find("CenterEyeAnchor").transform;
         loadingCircle.fillAmount = 0;
     }
 
     private void FixedUpdate()
     {
-        if(setVirbration && loadingCircle.fillAmount < 1)
+        if(lookatTarget == null)
+        {
+            Invoke("SetLookTarget", 0.1f);
+        }
+        if (setVirbration && loadingCircle.fillAmount < 1)
         {
             loadingCircle.fillAmount += Time.fixedDeltaTime / vibrationTime;
             FX.localRotation = Quaternion.Euler(0, 180, loadingCircle.fillAmount * 360f);
         }
         else if(loadingCircle.fillAmount >= 1)
         {
-            transform.parent.GetComponent<Task>().CheckTaskComplete();
-            this.gameObject.SetActive(false);
+            transform.parent.GetComponent<Task>().CmdCheckTaskComplete();
+            //this.gameObject.SetActive(false);
         }
+    }
+
+    private void SetLookTarget()
+    {
+        lookatTarget = GameObject.Find("CenterEyeAnchor").transform;
     }
 
     private void OnTriggerEnter(Collider other)

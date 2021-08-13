@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Mirror;
 
-public class Task : MonoBehaviour
+public class Task : NetworkBehaviour
 {
     public LightPoint[] lightPoints;
     public GameObject bwIcon;
@@ -12,7 +13,8 @@ public class Task : MonoBehaviour
     public Material clearSign;
     public GameObject rideSign;
 
-    private bool taskComplete;
+    [SyncVar, HideInInspector]
+    public bool taskComplete;
 
     private void Awake()
     {
@@ -22,21 +24,37 @@ public class Task : MonoBehaviour
         rideSign.GetComponent<RawImage>().material = notClearSign;
     }
 
-    public void CheckTaskComplete()
+    [Command(requiresAuthority = false)]
+    public void CmdCheckTaskComplete()
     {
-        for(int i =0; i < lightPoints.Length; i++)
+        for(int i = 0; i < lightPoints.Length; i++)
         {
-            if(lightPoints[i].loadingCircle.fillAmount < 1)
+            if (lightPoints[i].loadingCircle.fillAmount < 1)
             {
                 taskComplete = false;
-                break;
+            }
+            else
+            {
+                RpcDisableLightPoint(i);
             }
         }
         if (taskComplete)
         {
-            bwIcon.SetActive(false);
-            colorIcon.SetActive(true);
-            rideSign.GetComponent<RawImage>().material = clearSign;
+            RpcSetComplete();
         }
+    }
+
+    [ClientRpc]
+    public void RpcDisableLightPoint(int i)
+    {
+        lightPoints[i].gameObject.SetActive(false);
+    }
+
+    [ClientRpc]
+    public void RpcSetComplete()
+    {
+        bwIcon.SetActive(false);
+        colorIcon.SetActive(true);
+        rideSign.GetComponent<RawImage>().material = clearSign;
     }
 }
