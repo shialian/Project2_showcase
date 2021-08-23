@@ -583,6 +583,9 @@ public class CurvedUIInputModule : StandaloneInputModule {
 #if CURVEDUI_OCULUSVR
         activeCont = OVRInput.GetActiveController();
 
+        if (oculusCameraRig == null)
+            return;
+
         //Find the currently used HandAnchor----------------------//
         //and set direction ray using its transform
         switch (activeCont)

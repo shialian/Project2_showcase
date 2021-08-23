@@ -1,25 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Mirror;
 
 public class GameManager : NetworkBehaviour
 {
-    public int connectionId;
     public static GameManager singleton;
     public NetManager networkManager;
     public SyncDictionary<int, int> connection = new SyncDictionary<int, int>();
-
-    [SyncVar]
-    public bool loadScene;
-    [SyncVar]
-    public string sceneName;
 
     private List<int> keys;
 
     /* new added start */
     public SyncList<int> spawnCharcterID = new SyncList<int>();
     public int playerID;
+    public Transform localPlayer = null;
     private bool playerAdded;
     /* new added end*/
 
@@ -33,8 +29,6 @@ public class GameManager : NetworkBehaviour
     private void Start()
     {
         DontDestroyOnLoad(this);
-        connectionId = -1;
-        loadScene = false;
     }
 
     private void Update()
@@ -47,6 +41,10 @@ public class GameManager : NetworkBehaviour
         if(playerID == -1)
         {
             Invoke("SetPlayerID", 0.1f);
+        }
+        if(NetworkClient.localPlayer != null && localPlayer == null && SceneManager.GetActiveScene().name == "Theme")
+        {
+            localPlayer = NetworkClient.localPlayer.transform;
         }
     }
 

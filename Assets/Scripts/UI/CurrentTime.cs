@@ -6,12 +6,10 @@ using TMPro;
 public class CurrentTime : MonoBehaviour
 {
     private TextMeshProUGUI textUI;
-    private float timer;
 
     private void Awake()
     {
         textUI = GetComponent<TextMeshProUGUI>();
-        timer = 0;
     }
 
     private void FixedUpdate()

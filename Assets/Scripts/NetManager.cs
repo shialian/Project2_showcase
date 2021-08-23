@@ -61,15 +61,6 @@ public class NetManager : NetworkManager
     #region Start & Stop
 
     /// <summary>
-    /// Set the frame rate for a headless server.
-    /// <para>Override if you wish to disable the behavior or set your own tick rate.</para>
-    /// </summary>
-    public override void ConfigureServerFrameRate()
-    {
-        base.ConfigureServerFrameRate();
-    }
-
-    /// <summary>
     /// called when quitting the application by closing the window / pressing stop in the editor
     /// </summary>
     public override void OnApplicationQuit()
@@ -159,6 +150,7 @@ public class NetManager : NetworkManager
             for (int i = 0; i < connectionID.Count; i++) {
                 if (connectionID[i] == conn.connectionId) {
                     playerPrefab = spawnPrefabs[GameManager.singleton.spawnCharcterID[i]];
+                    startPositionIndex = GameManager.singleton.spawnCharcterID[i];
                     break;
                 }
             }

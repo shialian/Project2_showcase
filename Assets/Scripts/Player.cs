@@ -52,27 +52,15 @@ public class Player : NetworkBehaviour
     void Update()
     {
         ButtonEvent();
-        SendPosInfo();
     }
     void ButtonEvent(){
         OVRInput.Update();
         OVRInput.FixedUpdate();
-        Stamp_UI_Control UI = GetComponent<Stamp_UI_Control>();
         // trigger event
         if (OVRInput.Get(OVRInput.RawAxis1D.RIndexTrigger) > 0.5f){
             Debug.Log("Start !!!");
             // FindObjectOfType<PoseGameManager>().StartGame();
             // CmdAttach(GameObject.Find("T"),new Vector3(3,0,0));
-        }
-        // X button to close UI
-        else if( OVRInput.Get(OVRInput.Button.One, OVRInput.Controller.LTouch))
-        {
-            UI.CloseUI();
-        }
-        // A button to open UI
-        else if( OVRInput.Get(OVRInput.Button.One, OVRInput.Controller.RTouch))
-        {
-            UI.OpenUI();
         }
     }
 
@@ -177,16 +165,5 @@ public class Player : NetworkBehaviour
         else{
             transform.position = position;
         }
-    }
-    // the info to debug (show on "Develop_scene" UI)
-    void SendPosInfo(){
-        if (FindObjectOfType<TempUI>() == null)
-            return;
-        TempUI.LeftPos = LeftHand.position;
-        TempUI.RightPos = RightHand.position;
-        TempUI.CenterPos = Center.position;
-        TempUI.l_dir = left_dir;
-        TempUI.r_dir = right_dir;
-        TempUI.theta = angle;
     }
 }

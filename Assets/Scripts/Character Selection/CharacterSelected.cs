@@ -20,7 +20,7 @@ public class CharacterSelected : NetworkBehaviour
 
     private void Update()
     {
-        if (NetworkClient.ready)
+        if (NetworkClient.ready && CharacterManager.singleton.selected.Count == 2)
         {
             selectedBoard.SetActive(CharacterManager.singleton.selected[id]);
         }

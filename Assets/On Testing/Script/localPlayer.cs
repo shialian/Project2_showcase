@@ -10,17 +10,16 @@ public class LocalPlayer : NetworkBehaviour
     public GameObject character;
     public float lookDistance = 5f;
 
-    [SerializeField]
+    [HideInInspector]
+    public GameObject laserBeam;
+
     private GameObject UI;
-    private GameObject laserBeam;
     private CurvedUIInputModule cuiInputModule;
 
     private void Start()
     {
         if (!isLocalPlayer)
         {
-            GetComponent<OVRCameraRig>().enabled = false;
-            GetComponent<OVRHeadsetEmulator>().enabled = false;
             GetComponent<OVRPlayerController>().enabled = false;
             character.GetComponent<VRAnimatorController>().enabled = false;
             cameraAnchor.SetActive(false);
@@ -60,5 +59,12 @@ public class LocalPlayer : NetworkBehaviour
         UI.transform.position = cameraAnchor.transform.position + lookDistance * cameraAnchor.transform.forward;
         UI.transform.LookAt(cameraAnchor.transform);
         UI.transform.Rotate(0f, 180f, 0f);
+    }
+
+    public void SetPositionByOther(Vector3 position)
+    {
+        transform.GetComponent<CharacterController>().enabled = false;
+        transform.position = position;
+        transform.GetComponent<CharacterController>().enabled = true;
     }
 }
