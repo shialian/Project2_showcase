@@ -23,19 +23,24 @@ public class Task : NetworkBehaviour
         rideSign.GetComponent<RawImage>().material = notClearSign;
     }
 
-    [Command(requiresAuthority = false)]
-    public void CmdCheckTaskComplete()
+    private void Start()
     {
-        bool checkComplete = true;
         for(int i = 0; i < lightPoints.Length; i++)
         {
-            if (lightPoints[i].loadingCircle.fillAmount < 1)
+            lightPoints[i].SetLightPointID(i);
+        }
+    }
+
+    [Command(requiresAuthority = false)]
+    public void CmdCheckTaskComplete(int id)
+    {
+        bool checkComplete = true;
+        RpcDisableLightPoint(id);
+        for (int i = 0; i < lightPoints.Length; i++)
+        {
+            if (lightPoints[i].completed == false && i != id)
             {
                 checkComplete = false;
-            }
-            else
-            {
-                RpcDisableLightPoint(i);
             }
         }
         taskComplete = checkComplete;
@@ -48,6 +53,7 @@ public class Task : NetworkBehaviour
     [ClientRpc]
     public void RpcDisableLightPoint(int i)
     {
+        lightPoints[i].completed = true;
         lightPoints[i].gameObject.SetActive(false);
     }
 

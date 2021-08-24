@@ -24,14 +24,14 @@ public class GondoraControl : NetworkBehaviour
         if(NetworkClient.ready && localPlayer == null)
         {
             localPlayer = GameManager.singleton.localPlayer;
-            localPlayer.GetComponent<OVRPlayerController>().enabled = false;
-            localPlayer.GetComponent<CharacterController>().enabled = false;
         }
         if (trigger.startOperation && trigger.attachedPlayer == localPlayer)
         {
             if (onTheGondora == false)
             {
                 localPlayer.GetComponent<LocalPlayer>().SetPositionByOther(initialPosistion);
+                localPlayer.GetComponent<OVRPlayerController>().enabled = false;
+                localPlayer.GetComponent<CharacterController>().enabled = false;
                 localPlayer.parent = this.transform;
                 onTheGondora = true;
             }
@@ -41,7 +41,6 @@ public class GondoraControl : NetworkBehaviour
             }
             else if (OVRInput.Get(OVRInput.Button.Four))
             {
-                Debug.LogError("here");
                 Swing(-1);
             }
         }

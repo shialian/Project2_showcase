@@ -4,8 +4,13 @@ using UnityEngine;
 
 public class DebugLog : MonoBehaviour
 {
-    private void OnCollisionEnter(Collision collision)
+    public Transform leftController;
+    public Transform rightController;
+    private void Update()
     {
-        Debug.LogError(collision.collider);
+        if (OVRInput.Get(OVRInput.Button.Two))
+        {
+            Debug.LogError("left: " + leftController.position + " right:" + rightController.position);
+        }
     }
 }

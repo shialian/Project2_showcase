@@ -21,7 +21,7 @@ public class CharacterManager : NetworkBehaviour
         if (isServer)
         {
             selected.Add(false);
-            selected.Add(true);
+            selected.Add(false);
             selectedByPlayer.Add(null);
             selectedByPlayer.Add(null);
         }

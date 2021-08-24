@@ -6164,7 +6164,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 5911
+    m_Bits: 22295
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -6340,8 +6340,8 @@ GameObject:
   - component: {fileID: 4374801939731024130}
   - component: {fileID: -4898204526634370116}
   - component: {fileID: 5119266426748868961}
-  - component: {fileID: 7991815635174160660}
   - component: {fileID: 8009989957593501114}
+  - component: {fileID: 1285753874410303423}
   m_Layer: 10
   m_Name: Brother CameraRig
   m_TagString: Untagged
@@ -6504,23 +6504,6 @@ MonoBehaviour:
   syncInterval: 0.1
   clientAuthority: 1
   animator: {fileID: 4788574507033962269}
---- !u!114 &7991815635174160660
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4181705014686099191}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4eef99bd21b932342b520e9315f595f2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncMode: 0
-  syncInterval: 0.1
-  Camera: {fileID: 4181705014686099185}
-  PlayerID: 0
-  character: {fileID: 6772112750779987312}
 --- !u!114 &8009989957593501114
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6539,6 +6522,20 @@ MonoBehaviour:
   character: {fileID: 6772112750779987312}
   lookDistance: 5
   laserBeam: {fileID: 0}
+--- !u!114 &1285753874410303423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4181705014686099191}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 449c3d07092b0b8439029f81c1511677, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leftController: {fileID: 4181705014685956865}
+  rightController: {fileID: 4181705014685945605}
 --- !u!1 &4181705014686142389
 GameObject:
   m_ObjectHideFlags: 0

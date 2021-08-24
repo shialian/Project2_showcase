@@ -15,15 +15,15 @@ TagManager:
   - UI
   - 
   - 
-  - Controller
+  - ControllerPlayer1
   - TriggerItem
   - Player
   - LaserBeam
   - Ride
   - Sign
-  - 
-  - 
-  - 
+  - TriggerItemPlayer1
+  - TriggerItemPlayer2
+  - ControllerPlayer2
   - 
   - 
   - 

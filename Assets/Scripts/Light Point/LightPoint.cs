@@ -9,12 +9,15 @@ public class LightPoint : MonoBehaviour
     public float vibrationTime = 2.0f;
     public Image loadingCircle;
     public Transform FX;
+    public bool completed = false;
 
     [SerializeField]
     private Transform lookatTarget = null;
     private bool setVirbration = false;
     private Transform localPlayer;
     private GameObject laserBeam;
+    private Transform triggeredController;
+    private int id;
 
     private void Awake()
     {
@@ -39,7 +42,7 @@ public class LightPoint : MonoBehaviour
         }
         else if(loadingCircle.fillAmount >= 1)
         {
-            transform.parent.GetComponent<Task>().CmdCheckTaskComplete();
+            transform.parent.GetComponent<Task>().CmdCheckTaskComplete(id);
         }
     }
 
@@ -52,6 +55,7 @@ public class LightPoint : MonoBehaviour
     {
         setVirbration = true;
         transform.LookAt(lookatTarget.position);
+        triggeredController = other.transform;
         if (loadingCircle.fillAmount < 1)
         {
             for (int i = 0; i <= vibrationTime; i++)
@@ -81,7 +85,7 @@ public class LightPoint : MonoBehaviour
         if (setVirbration)
         {
             laserBeam = localPlayer.GetComponent<LocalPlayer>().laserBeam;
-            if(laserBeam.transform.parent.name == "RightHandAnchor")
+            if(triggeredController.name == "RightHandAnchor")
                 OVRInput.SetControllerVibration(10.0f, 0.3f, OVRInput.Controller.RTouch);
             else
                 OVRInput.SetControllerVibration(10.0f, 0.3f, OVRInput.Controller.LTouch);
@@ -91,9 +95,14 @@ public class LightPoint : MonoBehaviour
     private void StopVirbration()
     {
         laserBeam = localPlayer.GetComponent<LocalPlayer>().laserBeam;
-        if (laserBeam.transform.parent.name == "RightHandAnchor")
+        if (triggeredController.name == "RightHandAnchor")
             OVRInput.SetControllerVibration(0.0f, 0.0f, OVRInput.Controller.RTouch);
         else
             OVRInput.SetControllerVibration(0.0f, 0.0f, OVRInput.Controller.LTouch);
+    }
+
+    public void SetLightPointID(int i)
+    {
+        id = i;
     }
 }
