@@ -7,6 +7,7 @@ using TMPro;
 public class Dialogue : MonoBehaviour
 {
     public GameObject[] backgrounds;
+    public GameObject announcement;
     public TextMeshProUGUI characterName;
     public TextMeshProUGUI scriptText;
 
@@ -27,7 +28,6 @@ public class Dialogue : MonoBehaviour
         currentBackgound = backgrounds[0];
 
         Continue();
-
     }
 
     private void Update()
@@ -44,6 +44,13 @@ public class Dialogue : MonoBehaviour
 
     public void Continue()
     {
+        if(index >= script.Length && GameManager.singleton.isEnding == false)
+        {
+            announcement.SetActive(true);
+            this.gameObject.SetActive(false);
+            return;
+        }
+        
         string currentText = script[index];
         string character = currentText.Substring(0, 2);
         currentText = currentText.Substring(3, currentText.Length - 3);
@@ -77,5 +84,20 @@ public class Dialogue : MonoBehaviour
     {
         characterName.SetText(character);
         scriptText.SetText(text);
+    }
+
+    public void ChangeScript(string path, TMP_FontAsset font)
+    {
+        reader = new StreamReader(path);
+        script = reader.ReadToEnd().Split('\n');
+        scriptText.font = font;
+
+        for (int i = 0; i < backgrounds.Length; i++)
+        {
+            backgrounds[i].SetActive(false);
+        }
+
+        index = 0;
+        Continue();
     }
 }

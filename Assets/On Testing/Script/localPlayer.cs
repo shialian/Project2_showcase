@@ -15,6 +15,7 @@ public class LocalPlayer : NetworkBehaviour
 
     private GameObject guideMap;
     private GameObject dialogue;
+    private GameObject annocements;
     private CurvedUIInputModule cuiInputModule;
 
     private void Start()
@@ -28,6 +29,8 @@ public class LocalPlayer : NetworkBehaviour
         }
         else
         {
+            GetComponent<OVRPlayerController>().enabled = false;
+
             guideMap = GameObject.Find("Guide Map");
             guideMap.SetActive(false);
 
@@ -35,8 +38,12 @@ public class LocalPlayer : NetworkBehaviour
             SetUITransform(dialogue.transform);
             dialogue.SetActive(true);
 
+            annocements = GameObject.Find("Announcement");
+            SetUITransform(annocements.transform);
+            annocements.SetActive(false);
+
             laserBeam = GameObject.Find("LaserBeam");
-            laserBeam.SetActive(false);
+            laserBeam.SetActive(true);
 
             cuiInputModule = GameObject.Find("EventSystem").GetComponent<CurvedUIInputModule>();
             cuiInputModule.OculusCameraRig = GetComponent<OVRCameraRig>();
@@ -45,17 +52,15 @@ public class LocalPlayer : NetworkBehaviour
 
     private void Update()
     {
-        if(OVRInput.GetDown(OVRInput.Button.One, OVRInput.Controller.RTouch))
+        if(OVRInput.GetDown(OVRInput.Button.One, OVRInput.Controller.RTouch) && GameManager.singleton.isEnding == false)
         {
             if (guideMap.activeSelf == false)
             {
                 SetUITransform(guideMap.transform);
-                laserBeam.SetActive(true);
                 guideMap.SetActive(true);
             }
             else
             {
-                laserBeam.SetActive(false);
                 guideMap.SetActive(false);
             }
         }
@@ -69,10 +74,26 @@ public class LocalPlayer : NetworkBehaviour
             {
                 SetUITransform(dialogue.transform);
             }
+            if (annocements.activeSelf)
+            {
+                SetUITransform(annocements.transform);
+            }
+        }
+        if(guideMap.activeSelf || dialogue.activeSelf || annocements.activeSelf)
+        {
+            laserBeam.SetActive(true);
+        }
+        else
+        {
+            laserBeam.SetActive(false);
+        }
+        if(isLocalPlayer && cuiInputModule.OculusCameraRig == null)
+        {
+            cuiInputModule.OculusCameraRig = GetComponent<OVRCameraRig>();
         }
     }
 
-    private void SetUITransform(Transform ui)
+    public void SetUITransform(Transform ui)
     {
         ui.position = cameraAnchor.transform.position + lookDistance * cameraAnchor.transform.forward;
         ui.LookAt(cameraAnchor.transform);
@@ -84,5 +105,10 @@ public class LocalPlayer : NetworkBehaviour
         transform.GetComponent<CharacterController>().enabled = false;
         transform.position = position;
         transform.GetComponent<CharacterController>().enabled = true;
+    }
+
+    public void StartGame()
+    {
+        GetComponent<OVRPlayerController>().enabled = true;
     }
 }

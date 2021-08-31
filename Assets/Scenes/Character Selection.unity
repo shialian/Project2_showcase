@@ -1021,6 +1021,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   networkManager: {fileID: 1590175945}
+  isEnding: 0
   playerID: -1
   localPlayer: {fileID: 0}
 --- !u!1001 &741318556

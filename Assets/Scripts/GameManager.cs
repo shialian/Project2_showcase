@@ -9,6 +9,7 @@ public class GameManager : NetworkBehaviour
     public static GameManager singleton;
     public NetManager networkManager;
     public SyncDictionary<int, int> connection = new SyncDictionary<int, int>();
+    public bool isEnding = false;
 
     private List<int> keys;
 
@@ -45,39 +46,6 @@ public class GameManager : NetworkBehaviour
         if(NetworkClient.localPlayer != null && localPlayer == null && SceneManager.GetActiveScene().name == "Theme")
         {
             localPlayer = NetworkClient.localPlayer.transform;
-        }
-    }
-
-    // send another player who don't trigger the game to facility
-    public void SendAnotherPlayer(int tirggerPlayerID,GameObject facility,Vector3 position){
-        Player[] PlayerList = FindObjectsOfType<Player>();
-        Player SendTarget = null;
-        for(int i = 0 ; i < PlayerList.Length ; i++){
-            if(PlayerList[i].PlayerID != tirggerPlayerID){
-                SendTarget = PlayerList[i];
-                break;
-            }
-        }
-        Debug.Log("Who be send? : " + SendTarget);
-        if(SendTarget != null){
-            Debug.Log("Sending! " + facility.name + " " + position);
-            SendTarget.CmdAttach(facility,position); 
-        }
-    }
-    // send player back to ground
-    public void SendPlayerBack(int targetPlayerID,Vector3 position,bool is_origin){
-        Player[] PlayerList = FindObjectsOfType<Player>();
-        Player SendTarget = null;
-        Debug.Log("Send Back! " + targetPlayerID + " " + position + " " + is_origin);
-        for(int i = 0 ; i < PlayerList.Length ; i++){
-            if(PlayerList[i].PlayerID == targetPlayerID){
-                SendTarget = PlayerList[i];
-                break;
-            }
-        }
-        if(SendTarget != null){
-            // set is_origin to true let player back to origin position
-            SendTarget.CmdDetach(position,is_origin);
         }
     }
 

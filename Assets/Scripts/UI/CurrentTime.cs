@@ -5,6 +5,9 @@ using TMPro;
 
 public class CurrentTime : MonoBehaviour
 {
+    public Dialogue dialogue;
+    public TMP_FontAsset font;
+
     private TextMeshProUGUI textUI;
 
     private void Awake()
@@ -14,7 +17,8 @@ public class CurrentTime : MonoBehaviour
 
     private void FixedUpdate()
     {
-        int time = (int)Time.fixedTime * 6;
+        //int time = (int)Time.fixedTime * 6;
+        int time = 25080 + (int)Time.fixedTime * 6;
         int minute = time / 60;
         int hour = minute / 60 + 10;
         minute %= 60;
@@ -25,6 +29,16 @@ public class CurrentTime : MonoBehaviour
         else
         {
             textUI.SetText("現在時間 " + hour + ":" + minute);
+        }
+        
+        if(hour == 17 && minute == 0)
+        {
+            LocalPlayer localPlayer = GameManager.singleton.localPlayer.GetComponent<LocalPlayer>();
+            dialogue.gameObject.SetActive(true);
+            localPlayer.SetUITransform(dialogue.transform);
+            dialogue.ChangeScript("Assets/Dialogue/End_Not_Finish.txt", font);
+            GameManager.singleton.isEnding = true;
+            this.transform.parent.gameObject.SetActive(false);
         }
     }
 }

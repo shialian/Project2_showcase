@@ -31,6 +31,14 @@ public class Task : NetworkBehaviour
         }
     }
 
+    private void Update()
+    {
+        if (isServer && taskComplete == false)
+        {
+            taskComplete = true;
+        }
+    }
+
     [Command(requiresAuthority = false)]
     public void CmdCheckTaskComplete(int id)
     {
