@@ -8,17 +8,23 @@ public class CurrentTime : MonoBehaviour
     public Dialogue dialogue;
     public TMP_FontAsset font;
 
+    public Material sunset;
+    public Light directional;
+
     private TextMeshProUGUI textUI;
+    private Color dayColor;
+    private Color sunsetColor;
 
     private void Awake()
     {
         textUI = GetComponent<TextMeshProUGUI>();
+        ColorUtility.TryParseHtmlString("#FFEBC2", out dayColor);
+        ColorUtility.TryParseHtmlString("#763409", out sunsetColor);
     }
 
     private void FixedUpdate()
     {
-        //int time = (int)Time.fixedTime * 6;
-        int time = 25080 + (int)Time.fixedTime * 6;
+        int time = (int)Time.fixedTime * 42;
         int minute = time / 60;
         int hour = minute / 60 + 10;
         minute %= 60;
@@ -30,7 +36,12 @@ public class CurrentTime : MonoBehaviour
         {
             textUI.SetText("現在時間 " + hour + ":" + minute);
         }
-        
+
+        if(hour == 16)
+        {
+            RenderSettings.skybox = sunset;
+        }
+
         if(hour == 17 && minute == 0)
         {
             LocalPlayer localPlayer = GameManager.singleton.localPlayer.GetComponent<LocalPlayer>();
@@ -40,5 +51,7 @@ public class CurrentTime : MonoBehaviour
             GameManager.singleton.isEnding = true;
             this.transform.parent.gameObject.SetActive(false);
         }
+
+        directional.color = Color.Lerp(dayColor, sunsetColor, (float)time / 25200f);
     }
 }

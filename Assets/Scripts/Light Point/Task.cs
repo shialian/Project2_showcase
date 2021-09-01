@@ -13,6 +13,9 @@ public class Task : NetworkBehaviour
     public Material clearSign;
     public GameObject rideSign;
 
+    public AudioSource source;
+    public AudioClip completedSound;
+
     [SyncVar]
     public bool taskComplete = false;
 
@@ -28,14 +31,6 @@ public class Task : NetworkBehaviour
         for(int i = 0; i < lightPoints.Length; i++)
         {
             lightPoints[i].SetLightPointID(i);
-        }
-    }
-
-    private void Update()
-    {
-        if (isServer && taskComplete == false)
-        {
-            taskComplete = true;
         }
     }
 
@@ -62,6 +57,7 @@ public class Task : NetworkBehaviour
     public void RpcDisableLightPoint(int i)
     {
         lightPoints[i].completed = true;
+        source.PlayOneShot(completedSound);
         lightPoints[i].gameObject.SetActive(false);
     }
 
