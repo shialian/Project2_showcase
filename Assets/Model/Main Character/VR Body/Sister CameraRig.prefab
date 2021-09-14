@@ -3155,6 +3155,7 @@ MonoBehaviour:
   character: {fileID: 3478846232496169255}
   lookDistance: 5
   laserBeam: {fileID: 0}
+  showLaserBeam: 0
 --- !u!1 &2829101102137816083
 GameObject:
   m_ObjectHideFlags: 0
@@ -9019,7 +9020,7 @@ GameObject:
   - component: {fileID: 6788041698985790386}
   - component: {fileID: 4158350852886705771}
   - component: {fileID: 6632947352952503697}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: Current Position
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11175,7 +11176,7 @@ GameObject:
   - component: {fileID: 7740696755943904886}
   - component: {fileID: 2988774241386295597}
   - component: {fileID: 6024612416305936561}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}

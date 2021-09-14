@@ -30,7 +30,7 @@ namespace CurvedUI
 
 
             //make laser beam hit stuff it points at.
-            if(LaserBeamTransform && LaserBeamDot) {
+            if(LaserBeamTransform && LaserBeamDot && LaserBeamTransform.gameObject.activeSelf) {
                 //change the laser's length depending on where it hits
                 float length = 10000;
                 

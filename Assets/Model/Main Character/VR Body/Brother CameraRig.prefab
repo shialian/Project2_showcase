@@ -2563,7 +2563,7 @@ GameObject:
   - component: {fileID: 6957452956007684498}
   - component: {fileID: 4327158801019847183}
   - component: {fileID: 6613957333401937157}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6440,7 +6440,6 @@ GameObject:
   - component: {fileID: -4898204526634370116}
   - component: {fileID: 5119266426748868961}
   - component: {fileID: 8009989957593501114}
-  - component: {fileID: 1285753874410303423}
   m_Layer: 10
   m_Name: Brother CameraRig
   m_TagString: Untagged
@@ -6621,20 +6620,7 @@ MonoBehaviour:
   character: {fileID: 6772112750779987312}
   lookDistance: 5
   laserBeam: {fileID: 0}
---- !u!114 &1285753874410303423
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4181705014686099191}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 449c3d07092b0b8439029f81c1511677, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  leftController: {fileID: 4181705014685956865}
-  rightController: {fileID: 4181705014685945605}
+  showLaserBeam: 0
 --- !u!1 &4181705014686142389
 GameObject:
   m_ObjectHideFlags: 0
@@ -10499,7 +10485,7 @@ GameObject:
   - component: {fileID: 7778392421041790407}
   - component: {fileID: 9033368295433049804}
   - component: {fileID: 7939614426879586854}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: Current Position
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15005,15 +14991,15 @@ PrefabInstance:
       objectReference: {fileID: 9100000, guid: 3f974d61f39a79c408d54b32f31f186c, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 37ba10a26a648144fa2390c8adfb2c8a, type: 3}
---- !u!1 &8094441732560756729 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 100000, guid: 37ba10a26a648144fa2390c8adfb2c8a,
-    type: 3}
-  m_PrefabInstance: {fileID: 8094441732560656729}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8094441732561044441 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 37ba10a26a648144fa2390c8adfb2c8a,
+    type: 3}
+  m_PrefabInstance: {fileID: 8094441732560656729}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8094441732560756729 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100000, guid: 37ba10a26a648144fa2390c8adfb2c8a,
     type: 3}
   m_PrefabInstance: {fileID: 8094441732560656729}
   m_PrefabAsset: {fileID: 0}

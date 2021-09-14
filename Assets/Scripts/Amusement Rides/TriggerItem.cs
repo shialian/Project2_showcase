@@ -15,35 +15,24 @@ public class TriggerItem : NetworkBehaviour
     public bool hideLaserBeam = false;
 
     private Transform localPlayer = null;
-    private GameObject laserBeam;
-
-    private void Start()
-    {
-        laserBeam = null;
-    }
-
-    private void Update()
-    {
-        if(hideLaserBeam == false && triggeredPlayer != null && triggeredPlayer == localPlayer && laserBeam != null)
-        {
-            laserBeam.SetActive(startOperation);
-        }
-    }
 
     private void OnTriggerEnter(Collider other)
     {
-        localPlayer = GameManager.singleton.localPlayer;
-        if (other.transform.parent.parent == localPlayer)
+        if (other.gameObject.layer == LayerMask.NameToLayer("GameStarter"))
         {
-            SetTriggeredPlayer(localPlayer);
-            SetAttachedPlayer(localPlayer);
+            localPlayer = GameManager.singleton.localPlayer;
+            if (other.transform.parent.parent == localPlayer)
+            {
+                SetTriggeredPlayer(localPlayer);
+                SetAttachedPlayer(localPlayer);
+            }
+            else
+            {
+                SetAttachedPlayer(localPlayer);
+            }
+            localPlayer.GetComponent<LocalPlayer>().showLaserBeam = true;
+            SetRideStart(true);
         }
-        else
-        {
-            SetAttachedPlayer(localPlayer);
-        }
-        laserBeam = localPlayer.GetComponent<LocalPlayer>().laserBeam;
-        SetRideStart(true);
     }
 
     [Command(requiresAuthority = false)]

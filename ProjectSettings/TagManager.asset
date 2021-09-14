@@ -16,7 +16,7 @@ TagManager:
   - 
   - 
   - ControllerPlayer1
-  - TriggerItem
+  - GameStarter
   - Player
   - LaserBeam
   - Ride

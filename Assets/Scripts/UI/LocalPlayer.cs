@@ -12,6 +12,8 @@ public class LocalPlayer : NetworkBehaviour
 
     [HideInInspector]
     public GameObject laserBeam;
+    [HideInInspector]
+    public bool showLaserBeam = false;
 
     private GameObject guideMap;
     private GameObject dialogue;
@@ -79,7 +81,7 @@ public class LocalPlayer : NetworkBehaviour
                 SetUITransform(annocements.transform);
             }
         }
-        if(guideMap.activeSelf || dialogue.activeSelf || annocements.activeSelf)
+        if(guideMap.activeSelf || dialogue.activeSelf || annocements.activeSelf || showLaserBeam)
         {
             laserBeam.SetActive(true);
         }
