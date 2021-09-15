@@ -5,28 +5,31 @@ using TMPro;
 
 public class CurrentTime : MonoBehaviour
 {
+    public int totoalTimeInMinute = 10;
     public Dialogue dialogue;
     public TMP_FontAsset font;
 
-    public Material sunset;
+    public Material blendedSkybox;
     public Light directional;
 
     private TextMeshProUGUI textUI;
     private Color dayColor;
     private Color sunsetColor;
+    private int timePassingSpeed;
 
     private void Awake()
     {
         textUI = GetComponent<TextMeshProUGUI>();
         ColorUtility.TryParseHtmlString("#FFEBC2", out dayColor);
         ColorUtility.TryParseHtmlString("#763409", out sunsetColor);
+        timePassingSpeed = 360 / totoalTimeInMinute;
     }
 
     private void FixedUpdate()
     {
-        int time = (int)Time.fixedTime * 42;
+        int time = (int)Time.fixedTime * timePassingSpeed;
         int minute = time / 60;
-        int hour = minute / 60 + 10;
+        int hour = minute / 60 + 11;
         minute %= 60;
         if (minute < 10)
         {
@@ -39,7 +42,6 @@ public class CurrentTime : MonoBehaviour
 
         if(hour == 16)
         {
-            RenderSettings.skybox = sunset;
         }
 
         if(hour == 17 && minute == 0)
@@ -53,5 +55,7 @@ public class CurrentTime : MonoBehaviour
         }
 
         directional.color = Color.Lerp(dayColor, sunsetColor, (float)time / 25200f);
+        blendedSkybox.SetFloat("_Blend", (Time.fixedTime / 60) / totoalTimeInMinute);
+        RenderSettings.skybox = blendedSkybox;
     }
 }
