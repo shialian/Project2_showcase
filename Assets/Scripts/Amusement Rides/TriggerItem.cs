@@ -20,6 +20,7 @@ public class TriggerItem : NetworkBehaviour
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("GameStarter"))
         {
+            other.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
             localPlayer = GameManager.singleton.localPlayer;
             if (other.transform.parent.parent == localPlayer)
             {
@@ -30,7 +31,10 @@ public class TriggerItem : NetworkBehaviour
             {
                 SetAttachedPlayer(localPlayer);
             }
-            localPlayer.GetComponent<LocalPlayer>().showLaserBeam = true;
+            if (hideLaserBeam == false)
+            {
+                localPlayer.GetComponent<LocalPlayer>().showLaserBeam = true;
+            }
             SetRideStart(true);
         }
     }

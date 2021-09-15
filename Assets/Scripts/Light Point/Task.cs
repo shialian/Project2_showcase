@@ -12,12 +12,16 @@ public class Task : NetworkBehaviour
     public Material notClearSign;
     public Material clearSign;
     public GameObject rideSign;
+    
+    public TriggerItem trigger;
 
     public AudioSource source;
     public AudioClip completedSound;
 
     [SyncVar]
     public bool taskComplete = false;
+
+    private bool lightPointTriggered = false;
 
     private void Awake()
     {
@@ -31,6 +35,25 @@ public class Task : NetworkBehaviour
         for(int i = 0; i < lightPoints.Length; i++)
         {
             lightPoints[i].SetLightPointID(i);
+            if (trigger != null)
+            {
+                lightPoints[i].gameObject.SetActive(false);
+            }
+        }
+    }
+
+    private void Update()
+    {
+        if (trigger != null)
+        {
+            if (trigger.startOperation && lightPointTriggered == false)
+            {
+                for (int i = 0; i < lightPoints.Length; i++)
+                {
+                    lightPoints[i].gameObject.SetActive(true);
+                }
+                lightPointTriggered = true;
+            }
         }
     }
 
@@ -67,5 +90,6 @@ public class Task : NetworkBehaviour
         bwIcon.SetActive(false);
         colorIcon.SetActive(true);
         rideSign.GetComponent<RawImage>().material = clearSign;
+        trigger.SetRideStart(false);
     }
 }
