@@ -33,7 +33,7 @@ public class DropTowerControl : NetworkBehaviour
                 ChairMoving(new Vector3(0f, 0f, -10f * Time.fixedDeltaTime));
             }
         }
-        if (task.taskComplete)
+        if (task.taskComplete && trigger.triggeredPlayer == localPlayer)
         {
             ResetAll();
         }
@@ -54,11 +54,9 @@ public class DropTowerControl : NetworkBehaviour
 
     private void ResetAll()
     {
-        trigger.SetRideStart(false);
         transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, -15.28f);
         localPlayer.parent = null;
-        localPlayer.GetComponent<LocalPlayer>().SetPositionByOther(trigger.transform.position + trigger.transform.forward);
-        trigger.gameObject.SetActive(false);
+        localPlayer.GetComponent<LocalPlayer>().SetPositionByOther(trigger.transform.position - trigger.transform.forward);
         localPlayer.GetComponent<LocalPlayer>().showLaserBeam = false;
         this.enabled = false;
     }

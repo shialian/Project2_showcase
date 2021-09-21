@@ -10,6 +10,7 @@ public class LightPoint : MonoBehaviour
     public Image loadingCircle;
     public Transform FX;
     public bool completed = false;
+    public bool isTriggered = false;
 
     [SerializeField]
     private Transform lookatTarget = null;
@@ -17,12 +18,18 @@ public class LightPoint : MonoBehaviour
     private Transform localPlayer;
     private GameObject laserBeam;
     private Transform triggeredController;
-    private int id;
+    public int id;
+    private Task task;
 
     private void Awake()
     {
         loadingCircle.fillAmount = 0;
         laserBeam = null;
+    }
+
+    private void Start()
+    {
+        task = transform.parent.GetComponent<Task>();
     }
 
     private void FixedUpdate()
@@ -53,6 +60,19 @@ public class LightPoint : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (task.multiPlayerTask)
+        {
+            isTriggered = true;
+            task.CheckAndSetVibration(other);
+        }
+        else
+        {
+            TriggerEnterVibration(other);
+        }
+    }
+
+    private void TriggerEnterVibration(Collider other)
+    {
         setVirbration = true;
         transform.LookAt(lookatTarget.position);
         triggeredController = other.transform;
@@ -72,12 +92,23 @@ public class LightPoint : MonoBehaviour
             setVirbration = false;
             StopVirbration();
         }
+        if (task.multiPlayerTask)
+        {
+            if(task.playerReady[0] && task.playerReady[1] && setVirbration == false && completed == false)
+            {
+                TriggerEnterVibration(other);
+            }
+        }
     }
 
     private void OnTriggerExit(Collider other)
     {
         setVirbration = false;
-        StopVirbration();
+        isTriggered = false;
+        if (triggeredController != null)
+        {
+            StopVirbration();
+        }
     }
 
     private void SetVirbration()

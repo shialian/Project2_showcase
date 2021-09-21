@@ -113,4 +113,9 @@ public class LocalPlayer : NetworkBehaviour
     {
         GetComponent<OVRPlayerController>().enabled = true;
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        Debug.LogError(collision.collider);
+    }
 }

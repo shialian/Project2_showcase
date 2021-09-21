@@ -20,20 +20,18 @@ public class TriggerItem : NetworkBehaviour
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("GameStarter"))
         {
+            GameStartButton button = other.GetComponent<GameStartButton>();
             other.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
             localPlayer = GameManager.singleton.localPlayer;
-            if (other.transform.parent.parent == localPlayer)
+            if (button.player == localPlayer)
             {
                 SetTriggeredPlayer(localPlayer);
                 SetAttachedPlayer(localPlayer);
+                localPlayer.GetComponent<LocalPlayer>().showLaserBeam = true;
             }
             else
             {
-                SetAttachedPlayer(localPlayer);
-            }
-            if (hideLaserBeam == false)
-            {
-                localPlayer.GetComponent<LocalPlayer>().showLaserBeam = true;
+                //SetAttachedPlayer(localPlayer);
             }
             SetRideStart(true);
         }

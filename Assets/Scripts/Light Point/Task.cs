@@ -12,6 +12,7 @@ public class Task : NetworkBehaviour
     public Material notClearSign;
     public Material clearSign;
     public GameObject rideSign;
+    public bool multiPlayerTask = false;
     
     public TriggerItem trigger;
 
@@ -20,6 +21,7 @@ public class Task : NetworkBehaviour
 
     [SyncVar]
     public bool taskComplete = false;
+    public SyncList<bool> playerReady= new SyncList<bool>();
 
     private bool lightPointTriggered = false;
 
@@ -40,6 +42,11 @@ public class Task : NetworkBehaviour
                 lightPoints[i].gameObject.SetActive(false);
             }
         }
+        if (isServer)
+        {
+            playerReady.Add(false);
+            playerReady.Add(false);
+        }
     }
 
     private void Update()
@@ -55,6 +62,28 @@ public class Task : NetworkBehaviour
                 lightPointTriggered = true;
             }
         }
+    }
+
+    public void CheckAndSetVibration(Collider other)
+    {
+        bool allAreTriggered = true;
+        for(int i = 0; i < lightPoints.Length; i++)
+        {
+            if(lightPoints[i].gameObject.activeSelf && lightPoints[i].isTriggered == false)
+            {
+                allAreTriggered = false;
+            }
+        }
+        if (allAreTriggered)
+        {
+            PlayerTriggerReady(GameManager.singleton.playerID);
+        }
+    }
+
+    [Command]
+    public void PlayerTriggerReady(int id)
+    {
+        playerReady[id] = true;
     }
 
     [Command(requiresAuthority = false)]
@@ -90,6 +119,7 @@ public class Task : NetworkBehaviour
         bwIcon.SetActive(false);
         colorIcon.SetActive(true);
         rideSign.GetComponent<RawImage>().material = clearSign;
-        trigger.SetRideStart(false);
+        //trigger.SetRideStart(false);
+        //trigger.gameObject.SetActive(false);
     }
 }

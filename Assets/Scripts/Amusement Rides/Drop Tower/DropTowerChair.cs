@@ -9,6 +9,5 @@ public class DropTowerChair : MonoBehaviour
         Transform localPlayer = GameManager.singleton.localPlayer;
         localPlayer.parent = transform;
         localPlayer.GetComponent<LocalPlayer>().SetPositionByOther(transform.position);
-        localPlayer.GetComponent<CharacterController>().enabled = true;
     }
 }

@@ -50,5 +50,6 @@ public class AutoGenerateLightPoints : NetworkBehaviour
         lightPoint.GetComponent<LightPoint>().vibrationTime = 0.01f;
         lightPoint.parent = transform;
         this.GetComponent<Task>().lightPoints[index] = lightPoint.GetComponent<LightPoint>();
+        this.GetComponent<Task>().lightPoints[index].SetLightPointID(index);
     }
 }
