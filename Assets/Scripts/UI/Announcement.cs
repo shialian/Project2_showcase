@@ -5,7 +5,7 @@ using TMPro;
 
 public class Announcement : MonoBehaviour
 {
-    public GameObject[] annocements;
+    public GameObject annocement;
     public TextMeshProUGUI buttonText;
 
     private int index;
@@ -13,8 +13,6 @@ public class Announcement : MonoBehaviour
     private void Awake()
     {
         index = 0;
-
-        annocements[1].SetActive(false);
     }
 
     private void Update()
@@ -27,18 +25,8 @@ public class Announcement : MonoBehaviour
 
     public void ContinueAndStart()
     {
-        if(index == 0)
-        {
-            buttonText.SetText("開始玩");
-            annocements[0].SetActive(false);
-            annocements[1].SetActive(true);
-        }
-        else
-        {
-            LocalPlayer localPlayer = GameManager.singleton.localPlayer.GetComponent<LocalPlayer>();
-            localPlayer.StartGame();
-            this.gameObject.SetActive(false);
-        }
-        index++;
+        LocalPlayer localPlayer = GameManager.singleton.localPlayer.GetComponent<LocalPlayer>();
+        localPlayer.StartGame();
+        this.gameObject.SetActive(false);
     }
 }

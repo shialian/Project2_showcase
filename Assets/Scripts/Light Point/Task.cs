@@ -102,6 +102,7 @@ public class Task : NetworkBehaviour
         if (taskComplete)
         {
             RpcSetComplete();
+            //trigger.SetRideStart(false);
         }
     }
 
@@ -119,7 +120,5 @@ public class Task : NetworkBehaviour
         bwIcon.SetActive(false);
         colorIcon.SetActive(true);
         rideSign.GetComponent<RawImage>().material = clearSign;
-        //trigger.SetRideStart(false);
-        //trigger.gameObject.SetActive(false);
     }
 }

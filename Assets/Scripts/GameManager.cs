@@ -8,10 +8,7 @@ public class GameManager : NetworkBehaviour
 {
     public static GameManager singleton;
     public NetManager networkManager;
-    public SyncDictionary<int, int> connection = new SyncDictionary<int, int>();
     public bool isEnding = false;
-
-    private List<int> keys;
 
     /* new added start */
     public SyncList<int> spawnCharcterID = new SyncList<int>();

@@ -58,6 +58,8 @@ public class DropTowerControl : NetworkBehaviour
         localPlayer.parent = null;
         localPlayer.GetComponent<LocalPlayer>().SetPositionByOther(trigger.transform.position - trigger.transform.forward);
         localPlayer.GetComponent<LocalPlayer>().showLaserBeam = false;
+        trigger.SetRideStart(false);
+        trigger.transform.parent.gameObject.SetActive(false);
         this.enabled = false;
     }
 }
