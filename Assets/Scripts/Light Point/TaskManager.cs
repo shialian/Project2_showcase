@@ -5,15 +5,19 @@ using UnityEngine;
 public class TaskManager : MonoBehaviour
 {
     public Task[] tasks;
-    
-    public GameObject buttonToEnd;
+    public GameObject successUI;
+    public GameObject guideMap;
 
     private bool taskFinish;
 
     private void Awake()
     {
         taskFinish = true;
-        buttonToEnd.SetActive(false);
+    }
+
+    private void Start()
+    {
+        successUI.SetActive(false);
     }
 
     private void Update()
@@ -26,9 +30,27 @@ public class TaskManager : MonoBehaviour
                 taskFinish = false;
             }
         }
-        if (taskFinish)
+        if (taskFinish && successUI.activeSelf == false)
         {
-            buttonToEnd.SetActive(true);
+            GameManager.singleton.isEnding = true;
+            LocalPlayer localPlayer = GameManager.singleton.localPlayer.GetComponent<LocalPlayer>();
+            localPlayer.SetUITransform(successUI.transform.parent);
+            localPlayer.showLaserBeam = true;
+            localPlayer.GetComponent<OVRPlayerController>().enabled = false;
+            successUI.SetActive(true);
+            guideMap.SetActive(false);
+            this.transform.gameObject.SetActive(false);
+        }
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            GameManager.singleton.isEnding = true;
+            LocalPlayer localPlayer = GameManager.singleton.localPlayer.GetComponent<LocalPlayer>();
+            localPlayer.SetUITransform(successUI.transform.parent);
+            localPlayer.showLaserBeam = true;
+            localPlayer.GetComponent<OVRPlayerController>().enabled = false;
+            successUI.SetActive(true);
+            guideMap.SetActive(false);
+            this.transform.gameObject.SetActive(false);
         }
     }
 }

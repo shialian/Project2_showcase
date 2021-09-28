@@ -5,15 +5,7 @@ using TMPro;
 
 public class Announcement : MonoBehaviour
 {
-    public GameObject annocement;
     public TextMeshProUGUI buttonText;
-
-    private int index;
-
-    private void Awake()
-    {
-        index = 0;
-    }
 
     private void Update()
     {
@@ -28,5 +20,16 @@ public class Announcement : MonoBehaviour
         LocalPlayer localPlayer = GameManager.singleton.localPlayer.GetComponent<LocalPlayer>();
         localPlayer.StartGame();
         this.gameObject.SetActive(false);
+    }
+
+    public void ReStart()
+    {
+        GameManager.singleton.isEnding = false;
+        GameManager.singleton.LoadSceneByName("Theme");
+    }
+
+    public void EndGame()
+    {
+        Application.Quit();
     }
 }
