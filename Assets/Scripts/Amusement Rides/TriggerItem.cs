@@ -27,7 +27,10 @@ public class TriggerItem : NetworkBehaviour
             {
                 SetTriggeredPlayer(localPlayer);
                 SetAttachedPlayer(localPlayer);
-                localPlayer.GetComponent<LocalPlayer>().showLaserBeam = true;
+                if (hideLaserBeam == false)
+                {
+                    localPlayer.GetComponent<LocalPlayer>().showLaserBeam = true;
+                }
             }
             else
             {
