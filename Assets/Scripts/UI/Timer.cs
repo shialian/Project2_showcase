@@ -32,7 +32,10 @@ public class Timer : MonoBehaviour
 
     private void FixedUpdate()
     {
-        timer += Time.fixedDeltaTime * timePassingSpeed;
+        if (GameManager.singleton.gameStart)
+        {
+            timer += Time.fixedDeltaTime * timePassingSpeed;
+        }
         int time = (int)timer;
         minute = time / 60;
         hour = minute / 60 + 11;

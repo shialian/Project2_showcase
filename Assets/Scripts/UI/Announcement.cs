@@ -19,12 +19,14 @@ public class Announcement : MonoBehaviour
     {
         LocalPlayer localPlayer = GameManager.singleton.localPlayer.GetComponent<LocalPlayer>();
         localPlayer.StartGame();
+        GameManager.singleton.GameStart(true);
         this.gameObject.SetActive(false);
     }
 
     public void ReStart()
     {
         GameManager.singleton.isEnding = false;
+        GameManager.singleton.GameStart(false);
         GameManager.singleton.LoadSceneByName("Theme");
     }
 

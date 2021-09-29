@@ -47,7 +47,7 @@ public class AutoGenerateLightPoints : NetworkBehaviour
     public void InstanticalLightPoint(Vector3 Position, int index)
     {
         Transform lightPoint = Instantiate(lightPointPrefab, Position, Quaternion.identity);
-        lightPoint.GetComponent<LightPoint>().vibrationTime = 0.01f;
+        lightPoint.GetComponent<LightPoint>().vibrationTime = 0.02f;
         lightPoint.parent = transform;
         this.GetComponent<Task>().lightPoints[index] = lightPoint.GetComponent<LightPoint>();
         this.GetComponent<Task>().lightPoints[index].SetLightPointID(index);

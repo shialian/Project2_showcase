@@ -10,6 +10,9 @@ public class GameManager : NetworkBehaviour
     public NetManager networkManager;
     public bool isEnding = false;
 
+    [SyncVar]
+    public bool gameStart = false;
+
     /* new added start */
     public SyncList<int> spawnCharcterID = new SyncList<int>();
     public int playerID;
@@ -65,5 +68,11 @@ public class GameManager : NetworkBehaviour
         NetManager.singleton.ServerChangeScene(name);
     }
 
+
+    [Command(requiresAuthority = false)]
+    public void GameStart(bool flag)
+    {
+        gameStart = flag;
+    }
     /* new added end */
 }
