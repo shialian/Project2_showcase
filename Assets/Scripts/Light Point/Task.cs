@@ -67,23 +67,34 @@ public class Task : NetworkBehaviour
     public void CheckAndSetVibration(Collider other)
     {
         bool allAreTriggered = true;
-        for(int i = 0; i < lightPoints.Length; i++)
+        if(GameManager.singleton.playerID == 0)
         {
-            if(lightPoints[i].gameObject.activeSelf && lightPoints[i].isTriggered == false)
+            if(lightPoints[0].isTriggered == false || lightPoints[1].isTriggered == false)
+            {
+                allAreTriggered = false;
+            }
+        }
+        else
+        {
+            if (lightPoints[2].isTriggered == false || lightPoints[3].isTriggered == false)
             {
                 allAreTriggered = false;
             }
         }
         if (allAreTriggered)
         {
-            PlayerTriggerReady(GameManager.singleton.playerID);
+            PlayerTriggerReady(GameManager.singleton.playerID, true);
+        }
+        else
+        {
+            PlayerTriggerReady(GameManager.singleton.playerID, false);
         }
     }
 
-    [Command]
-    public void PlayerTriggerReady(int id)
+    [Command(requiresAuthority = false)]
+    public void PlayerTriggerReady(int id, bool flag)
     {
-        playerReady[id] = true;
+        playerReady[id] = flag;
     }
 
     [Command(requiresAuthority = false)]
@@ -102,7 +113,6 @@ public class Task : NetworkBehaviour
         if (taskComplete)
         {
             RpcSetComplete();
-            //trigger.SetRideStart(false);
         }
     }
 

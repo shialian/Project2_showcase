@@ -94,7 +94,7 @@ public class LightPoint : MonoBehaviour
         }
         if (task.multiPlayerTask)
         {
-            if(task.playerReady[0] && task.playerReady[1] && setVirbration == false && completed == false)
+            if (task.playerReady[0] && task.playerReady[1] && setVirbration == false && completed == false)
             {
                 TriggerEnterVibration(other);
             }

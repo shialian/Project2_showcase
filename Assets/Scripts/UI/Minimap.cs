@@ -8,6 +8,7 @@ public class Minimap : MonoBehaviour, IScrollHandler, IDragHandler
     public Camera minimapCamera;
 
     private float size;
+    private GameObject currIcon;
 
     private void Awake()
     {
@@ -17,11 +18,20 @@ public class Minimap : MonoBehaviour, IScrollHandler, IDragHandler
     public void OnPointerEnter(GameObject icon)
     {
         icon.SetActive(true);
+        currIcon = icon;
     }
 
     public void OnPointerExit(GameObject icon)
     {
         icon.SetActive(false);
+    }
+
+    private void OnDisable()
+    {
+        if (currIcon != null)
+        {
+            OnPointerExit(currIcon);
+        }
     }
 
     public void OnScroll(PointerEventData eventData)

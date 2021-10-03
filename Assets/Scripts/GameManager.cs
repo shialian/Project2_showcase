@@ -47,6 +47,9 @@ public class GameManager : NetworkBehaviour
         {
             localPlayer = NetworkClient.localPlayer.transform;
         }
+
+        ///// 以下金手指 /////
+        GoldenFinger_FinalUI();      
     }
 
     /* new added start */
@@ -75,4 +78,31 @@ public class GameManager : NetworkBehaviour
         gameStart = flag;
     }
     /* new added end */
+
+    /* Golden Finger Start*/
+    private void GoldenFinger_FinalUI()
+    {
+        if (SceneManager.GetActiveScene().name == "Theme")
+        {
+            if (Input.GetKeyDown(KeyCode.Z))
+            {
+                GameObject fail = GameObject.Find("Game Over UI").transform.Find("Fail").gameObject;
+                LocalPlayer local = localPlayer.GetComponent<LocalPlayer>();
+                local.SetUITransform(fail.transform.parent);
+                local.showLaserBeam = true;
+                fail.SetActive(true);
+                isEnding = true;
+            }
+            if (Input.GetKeyDown(KeyCode.X))
+            {
+                GameObject success = GameObject.Find("Game Over UI").transform.Find("Success").gameObject;
+                LocalPlayer local = localPlayer.GetComponent<LocalPlayer>();
+                local.SetUITransform(success.transform.parent);
+                local.showLaserBeam = true;
+                success.SetActive(true);
+                isEnding = true;
+            }
+        }
+    }
+    /* Golden Finger End*/
 }

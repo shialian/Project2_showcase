@@ -38,11 +38,25 @@ public class LocalPlayer : NetworkBehaviour
 
             dialogue = GameObject.Find("Dialogue");
             SetUITransform(dialogue.transform);
-            dialogue.SetActive(true);
+            if (GameManager.singleton.isEnding)
+            {
+                dialogue.SetActive(true);
+            }
+            else
+            {
+                dialogue.SetActive(false);
+            }
 
             annocements = GameObject.Find("Announcement");
             SetUITransform(annocements.transform);
-            annocements.SetActive(false);
+            if (GameManager.singleton.isEnding)
+            {
+                annocements.SetActive(false);
+            }
+            else
+            {
+                annocements.SetActive(true);
+            }
 
             laserBeam = GameObject.Find("LaserBeam");
             laserBeam.SetActive(true);

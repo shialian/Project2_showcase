@@ -6,6 +6,10 @@ using TMPro;
 public class Announcement : MonoBehaviour
 {
     public TextMeshProUGUI buttonText;
+    public GameObject[] announcement;
+    public GameObject dialogue;
+
+    private bool isInro = true;
 
     private void Update()
     {
@@ -13,6 +17,28 @@ public class Announcement : MonoBehaviour
         {
             ContinueAndStart();
         }
+    }
+
+    public void IntroOrStart()
+    {
+        if (isInro)
+        {
+            EndIntroduction();
+        }
+        else
+        {
+            ContinueAndStart();
+        }
+    }
+
+    public void EndIntroduction()
+    {
+        buttonText.SetText("開始玩");
+        announcement[0].SetActive(false);
+        announcement[1].SetActive(true);
+        isInro = false;
+        dialogue.SetActive(true);
+        this.gameObject.SetActive(false);
     }
 
     public void ContinueAndStart()
