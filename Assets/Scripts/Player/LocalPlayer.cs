@@ -28,7 +28,6 @@ public class LocalPlayer : NetworkBehaviour
             character.GetComponent<VRAnimatorController>().enabled = false;
             this.transform.GetChild(0).GetChild(4).gameObject.SetActive(false);
             this.transform.GetChild(0).GetChild(5).gameObject.SetActive(false);
-            this.transform.GetChild(0).GetChild(6).GetComponent<VRRig>().enabled = false;
             cameraAnchor.SetActive(false);
             this.enabled = false;
         }
