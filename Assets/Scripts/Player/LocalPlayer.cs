@@ -26,7 +26,6 @@ public class LocalPlayer : NetworkBehaviour
         {
             GetComponent<OVRPlayerController>().enabled = false;
             character.GetComponent<VRAnimatorController>().enabled = false;
-            GetComponent<OVRCameraRig>().enabled = false;
             GetComponent<OVRHeadsetEmulator>().enabled = false;
             this.transform.GetChild(0).GetChild(4).gameObject.SetActive(false);
             this.transform.GetChild(0).GetChild(5).gameObject.SetActive(false);

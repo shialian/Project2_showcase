@@ -25,7 +25,7 @@ public class GondoraControl : NetworkBehaviour
         {
             localPlayer = GameManager.singleton.localPlayer;
         }
-        if (trigger.startOperation && trigger.attachedPlayer == localPlayer)
+        if(trigger.startOperation && trigger.attachedPlayer == localPlayer)
         {
             if (onTheGondora == false)
             {
@@ -35,6 +35,9 @@ public class GondoraControl : NetworkBehaviour
                 localPlayer.parent = this.transform;
                 onTheGondora = true;
             }
+        }
+        if (trigger.startOperation && trigger.attachedPlayer == localPlayer)
+        {
             if (OVRInput.Get(OVRInput.Button.Three))
             {
                 Swing(1);
