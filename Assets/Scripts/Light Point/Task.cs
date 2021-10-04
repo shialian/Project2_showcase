@@ -106,14 +106,14 @@ public class Task : NetworkBehaviour
         {
             if (GameManager.singleton.playerID == 0)
             {
-                if (lightPoints[0].completed == false || lightPoints[1].completed == false)
+                if (lightPoints[0].gameObject.activeSelf || lightPoints[1].gameObject.activeSelf)
                 {
                     checkComplete = false;
                 }
             }
             if (GameManager.singleton.playerID == 1)
             {
-                if (lightPoints[2].completed == false || lightPoints[3].completed == false)
+                if (lightPoints[2].gameObject.activeSelf || lightPoints[3].gameObject.activeSelf)
                 {
                     checkComplete = false;
                 }
