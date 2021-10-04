@@ -87,8 +87,6 @@ public class Task : NetworkBehaviour
     [Command(requiresAuthority = false)]
     public void PlayerTriggerReady(int id, bool flag)
     {
-        if (playerReady[1] == false)
-            playerReady[1] = true;
         playerReady[id] = flag;
     }
 
