@@ -14,7 +14,7 @@ public class LightPoint : MonoBehaviour
 
     [SerializeField]
     private Transform lookatTarget = null;
-    private bool setVirbration = false;
+    public bool setVirbration = false;
     private Transform localPlayer;
     private GameObject laserBeam;
     private Transform triggeredController;
@@ -99,13 +99,10 @@ public class LightPoint : MonoBehaviour
         }
         if (task.multiPlayerTask)
         {
-            if (task.playerReady[0] && task.playerReady[1] && setVirbration == false && loadingCircle.fillAmount < 1)
+            bool flag = task.PlayerReadyCheck(GameManager.singleton.playerID);
+            if (task.playerReady[0] && task.playerReady[1] && setVirbration == false && loadingCircle.fillAmount < 1 && flag)
             {
                 TriggerEnterVibration(other);
-            }
-            else if((!task.playerReady[0] || !task.playerReady[1]) && setVirbration == true)
-            {
-                StopVirbration();
             }
         }
     }
@@ -133,7 +130,7 @@ public class LightPoint : MonoBehaviour
         }
     }
 
-    private void StopVirbration()
+    public void StopVirbration()
     {
         laserBeam = localPlayer.GetComponent<LocalPlayer>().laserBeam;
         if (triggeredController.name == "RightHandAnchor")

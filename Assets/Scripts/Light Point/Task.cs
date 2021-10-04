@@ -73,20 +73,7 @@ public class Task : NetworkBehaviour
     public void CheckAndSetVibration(Collider other)
     {
         bool allAreTriggered = true;
-        if(GameManager.singleton.playerID == 0)
-        {
-            if(lightPoints[0].isTriggered == false || lightPoints[1].isTriggered == false)
-            {
-                allAreTriggered = false;
-            }
-        }
-        else
-        {
-            if (lightPoints[2].isTriggered == false || lightPoints[3].isTriggered == false)
-            {
-                allAreTriggered = false;
-            }
-        }
+        allAreTriggered = PlayerReadyCheck(GameManager.singleton.playerID);
         if (allAreTriggered)
         {
             PlayerTriggerReady(GameManager.singleton.playerID, true);
@@ -143,6 +130,50 @@ public class Task : NetworkBehaviour
         {
             RpcSetComplete();
         }
+    }
+
+    public bool PlayerReadyCheck(int id)
+    {
+        if (GameManager.singleton.playerID == 0)
+        {
+            if (lightPoints[0].gameObject.activeSelf && lightPoints[0].isTriggered == false)
+            {
+                StopAllLightPointVibration();
+                return false;
+            }
+            if (lightPoints[1].gameObject.activeSelf && lightPoints[1].isTriggered == false)
+            {
+                StopAllLightPointVibration();
+                return false;
+            }
+        }
+        else
+        {
+            if (lightPoints[2].gameObject.activeSelf && lightPoints[2].isTriggered == false)
+            {
+                StopAllLightPointVibration();
+                return false;
+            }
+            if (lightPoints[3].gameObject.activeSelf && lightPoints[3].isTriggered == false)
+            {
+                StopAllLightPointVibration();
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public void StopAllLightPointVibration()
+    {
+        for(int i = 0; i < lightPoints.Length; i++)
+        {
+            if (lightPoints[i].gameObject.activeSelf)
+            {
+                lightPoints[i].setVirbration = false;
+            }
+        }
+        OVRInput.SetControllerVibration(0.0f, 0.0f, OVRInput.Controller.RTouch);
+        OVRInput.SetControllerVibration(0.0f, 0.0f, OVRInput.Controller.LTouch);
     }
 
     [ClientRpc]
