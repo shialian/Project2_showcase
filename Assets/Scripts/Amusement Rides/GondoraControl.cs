@@ -39,6 +39,7 @@ public class GondoraControl : NetworkBehaviour
         }
         if (trigger.startOperation && trigger.attachedPlayer == localPlayer)
         {
+            Debug.LogError("hi");
             if (OVRInput.Get(OVRInput.Button.Three))
             {
                 Swing(1);
@@ -54,8 +55,10 @@ public class GondoraControl : NetworkBehaviour
         }
     }
 
+    [Command(requiresAuthority = false)]
     private void Swing(int direction)
     {
+        Debug.LogError(direction);
         Vector3 rotation = this.transform.rotation.eulerAngles;
         transform.Rotate(direction * speedFactor * Time.fixedDeltaTime, 0f, 0f);
         rotation = this.transform.rotation.eulerAngles;

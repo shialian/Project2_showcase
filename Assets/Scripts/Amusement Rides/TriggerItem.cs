@@ -7,14 +7,21 @@ public class TriggerItem : NetworkBehaviour
 {
     [SyncVar]
     public bool startOperation = false;
-    [SyncVar]
     public Transform attachedPlayer = null;
-    [SyncVar]
     public Transform triggeredPlayer = null;
 
     public bool hideLaserBeam = false;
 
+    private bool isTriggered = false;
     private Transform localPlayer = null;
+
+    private void Update()
+    {
+        if(GameManager.singleton && localPlayer == null)
+        {
+            localPlayer = GameManager.singleton.localPlayer;
+        }
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -22,35 +29,33 @@ public class TriggerItem : NetworkBehaviour
         {
             GameStartButton button = other.GetComponent<GameStartButton>();
             other.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
-            localPlayer = GameManager.singleton.localPlayer;
-            if (button.player == localPlayer)
+            isTriggered = true;
+            CmdSetPlayers();
+            if (hideLaserBeam == false)
             {
-                SetTriggeredPlayer(localPlayer);
-                //SetAttachedPlayer(localPlayer);
-                if (hideLaserBeam == false)
-                {
-                    localPlayer.GetComponent<LocalPlayer>().showLaserBeam = true;
-                }
-            }
-            else
-            {
-                SetAttachedPlayer(localPlayer);
-                localPlayer.transform.GetChild(0).gameObject.SetActive(true);
+                localPlayer.GetComponent<LocalPlayer>().showLaserBeam = true;
             }
             SetRideStart(true);
         }
     }
 
     [Command(requiresAuthority = false)]
-    public void SetTriggeredPlayer(Transform player)
+    public void CmdSetPlayers()
     {
-        triggeredPlayer = player;
+        RpcSetPlayers();
     }
 
-    [Command(requiresAuthority = false)]
-    public void SetAttachedPlayer(Transform player)
+    [ClientRpc]
+    public void RpcSetPlayers()
     {
-        attachedPlayer = player;
+        if (isTriggered)
+        {
+            triggeredPlayer = localPlayer;
+        }
+        else
+        {
+            attachedPlayer = localPlayer;
+        }
     }
 
     [Command(requiresAuthority = false)]

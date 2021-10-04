@@ -2830,7 +2830,7 @@ Transform:
   - {fileID: 2829101102137466339}
   - {fileID: 4452143437421410041}
   m_Father: {fileID: 2829101102137387057}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2829101102137806557
 GameObject:
@@ -2995,9 +2995,9 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 7753198278407695996}
   - {fileID: 2829101102137454963}
   - {fileID: 3076219322251871440}
+  - {fileID: 7753198278407695996}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -11259,7 +11259,7 @@ RectTransform:
   m_Children:
   - {fileID: 6788041698985790386}
   m_Father: {fileID: 2829101102137387057}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -13187,15 +13187,15 @@ PrefabInstance:
       objectReference: {fileID: 9100000, guid: 92dd1ff21e711dc4b8b57eb39ab807ac, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 32fbc8bcebb64584da5868aeeb086cda, type: 3}
---- !u!1 &6253171500798586594 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 100000, guid: 32fbc8bcebb64584da5868aeeb086cda,
-    type: 3}
-  m_PrefabInstance: {fileID: 6253171500798683202}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6253171500798816962 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 32fbc8bcebb64584da5868aeeb086cda,
+    type: 3}
+  m_PrefabInstance: {fileID: 6253171500798683202}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6253171500798586594 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100000, guid: 32fbc8bcebb64584da5868aeeb086cda,
     type: 3}
   m_PrefabInstance: {fileID: 6253171500798683202}
   m_PrefabAsset: {fileID: 0}
@@ -13304,15 +13304,15 @@ PrefabInstance:
       objectReference: {fileID: 9100000, guid: 62a9d09916ac8bf4ba30ba4803d3503a, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 25b5eb0761edb6346b0b3444af76b55e, type: 3}
---- !u!1 &6533705379965495183 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 100018, guid: 25b5eb0761edb6346b0b3444af76b55e,
-    type: 3}
-  m_PrefabInstance: {fileID: 6533705379965526333}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6533705379965139887 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400018, guid: 25b5eb0761edb6346b0b3444af76b55e,
+    type: 3}
+  m_PrefabInstance: {fileID: 6533705379965526333}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6533705379965495183 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100018, guid: 25b5eb0761edb6346b0b3444af76b55e,
     type: 3}
   m_PrefabInstance: {fileID: 6533705379965526333}
   m_PrefabAsset: {fileID: 0}
@@ -13421,15 +13421,15 @@ PrefabInstance:
       objectReference: {fileID: 9100000, guid: 62a9d09916ac8bf4ba30ba4803d3503a, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 25b5eb0761edb6346b0b3444af76b55e, type: 3}
---- !u!1 &7353469602746970623 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 100018, guid: 25b5eb0761edb6346b0b3444af76b55e,
-    type: 3}
-  m_PrefabInstance: {fileID: 7353469602746873677}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7353469602746740191 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400018, guid: 25b5eb0761edb6346b0b3444af76b55e,
+    type: 3}
+  m_PrefabInstance: {fileID: 7353469602746873677}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7353469602746970623 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100018, guid: 25b5eb0761edb6346b0b3444af76b55e,
     type: 3}
   m_PrefabInstance: {fileID: 7353469602746873677}
   m_PrefabAsset: {fileID: 0}
@@ -13564,7 +13564,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 48577cf3102bceb4f91eb3c45702f856,
         type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 48577cf3102bceb4f91eb3c45702f856,
         type: 3}
