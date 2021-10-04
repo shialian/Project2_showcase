@@ -33,7 +33,7 @@ public class LocalPlayer : NetworkBehaviour
         {
             GetComponent<OVRPlayerController>().enabled = false;
 
-            guideMap = GameObject.Find("Guide Map");
+            guideMap = GameObject.Find("GuideMap");
             guideMap.SetActive(false);
 
             dialogue = GameObject.Find("Dialogue");
