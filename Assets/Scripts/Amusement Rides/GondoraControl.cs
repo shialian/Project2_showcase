@@ -44,7 +44,7 @@ public class GondoraControl : NetworkBehaviour
                 Swing(-1);
             }
         }
-        if (task.taskComplete)
+        if (task.taskComplete && trigger.triggeredPlayer == localPlayer)
         {
             ResetAll();
         }

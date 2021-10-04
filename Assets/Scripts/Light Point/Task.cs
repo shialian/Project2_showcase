@@ -102,11 +102,31 @@ public class Task : NetworkBehaviour
     {
         bool checkComplete = true;
         RpcDisableLightPoint(id);
-        for (int i = 0; i < lightPoints.Length; i++)
+        if (multiPlayerTask)
         {
-            if (lightPoints[i].completed == false && i != id)
+            if (GameManager.singleton.playerID == 0)
             {
-                checkComplete = false;
+                if (lightPoints[0].completed == false || lightPoints[1].completed == false)
+                {
+                    checkComplete = false;
+                }
+            }
+            if (GameManager.singleton.playerID == 1)
+            {
+                if (lightPoints[2].completed == false || lightPoints[3].completed == false)
+                {
+                    checkComplete = false;
+                }
+            }
+        }
+        else
+        {
+            for (int i = 0; i < lightPoints.Length; i++)
+            {
+                if (lightPoints[i].completed == false && i != id)
+                {
+                    checkComplete = false;
+                }
             }
         }
         taskComplete = checkComplete;
