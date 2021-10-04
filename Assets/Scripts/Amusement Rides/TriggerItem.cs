@@ -35,6 +35,7 @@ public class TriggerItem : NetworkBehaviour
             else
             {
                 SetAttachedPlayer(localPlayer);
+                localPlayer.transform.GetChild(0).gameObject.SetActive(true);
             }
             SetRideStart(true);
         }
