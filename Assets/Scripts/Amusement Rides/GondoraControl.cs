@@ -11,6 +11,7 @@ public class GondoraControl : NetworkBehaviour
     public Task task;
 
     private Transform localPlayer;
+    [SerializeField]
     private bool onTheGondora;
 
     private void Awake()
@@ -25,7 +26,7 @@ public class GondoraControl : NetworkBehaviour
         {
             localPlayer = GameManager.singleton.localPlayer;
         }
-        if(trigger.startOperation && trigger.attachedPlayer == localPlayer)
+        if(trigger.startOperation && trigger.triggeredPlayer == localPlayer)
         {
             if (onTheGondora == false)
             {
