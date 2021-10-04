@@ -51,6 +51,11 @@ public class LightPoint : MonoBehaviour
         {
             transform.parent.GetComponent<Task>().CmdCheckTaskComplete(id);
         }
+        if (completed)
+        {
+            transform.parent.GetComponent<Task>().CmdCheckTaskComplete(id);
+            gameObject.SetActive(false);
+        }
     }
 
     private void SetLookTarget()
@@ -94,9 +99,13 @@ public class LightPoint : MonoBehaviour
         }
         if (task.multiPlayerTask)
         {
-            if (task.playerReady[0] && task.playerReady[1] && setVirbration == false && completed == false)
+            if (task.playerReady[0] && task.playerReady[1] && setVirbration == false && loadingCircle.fillAmount < 1)
             {
                 TriggerEnterVibration(other);
+            }
+            else if((!task.playerReady[0] || !task.playerReady[1]) && setVirbration == true)
+            {
+                StopVirbration();
             }
         }
     }
@@ -105,6 +114,7 @@ public class LightPoint : MonoBehaviour
     {
         setVirbration = false;
         isTriggered = false;
+        task.CheckAndSetVibration(other);
         if (triggeredController != null)
         {
             StopVirbration();

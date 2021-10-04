@@ -24,6 +24,8 @@ public class Task : NetworkBehaviour
     public SyncList<bool> playerReady= new SyncList<bool>();
 
     private bool lightPointTriggered = false;
+    [SyncVar]
+    public int recordId = -1;
 
     private void Awake()
     {
@@ -62,6 +64,10 @@ public class Task : NetworkBehaviour
                 lightPointTriggered = true;
             }
         }
+        if(taskComplete == false && isServer && recordId != -1)
+        {
+            CmdCheckTaskComplete(recordId);
+        }
     }
 
     public void CheckAndSetVibration(Collider other)
@@ -94,6 +100,8 @@ public class Task : NetworkBehaviour
     [Command(requiresAuthority = false)]
     public void PlayerTriggerReady(int id, bool flag)
     {
+        if (playerReady[1] == false)
+            playerReady[1] = true;
         playerReady[id] = flag;
     }
 
@@ -102,6 +110,7 @@ public class Task : NetworkBehaviour
     {
         bool checkComplete = true;
         RpcDisableLightPoint(id);
+        recordId = id;
         if (multiPlayerTask)
         {
             if (GameManager.singleton.playerID == 0)
@@ -141,7 +150,6 @@ public class Task : NetworkBehaviour
     {
         lightPoints[i].completed = true;
         source.PlayOneShot(completedSound);
-        lightPoints[i].gameObject.SetActive(false);
     }
 
     [ClientRpc]
