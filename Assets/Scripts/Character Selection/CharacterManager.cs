@@ -7,8 +7,7 @@ public class CharacterManager : NetworkBehaviour
 {
     public static CharacterManager singleton;
     public GameObject playButton;
-    public SyncList<bool> selected = new SyncList<bool>();
-    public SyncList<NetworkIdentity> selectedByPlayer = new SyncList<NetworkIdentity>();
+    public SyncList<CharacterSelection> playerSelected = new SyncList<CharacterSelection>();
 
     private void Awake()
     {
@@ -20,52 +19,64 @@ public class CharacterManager : NetworkBehaviour
     {
         if (isServer)
         {
-            selected.Add(false);
-            selected.Add(false);
-            selectedByPlayer.Add(null);
-            selectedByPlayer.Add(null);
+            playerSelected.Add(null);
+            playerSelected.Add(null);
         }
     }
 
-    private void Update()
-    {
-        SelectionManagement();
-    }
-
-    private void SelectionManagement()
-    {
-        if(selected[0] && selected[1])
-        {
-            playButton.SetActive(true);
-        }
-        else
-        {
-            playButton.SetActive(false);
-        }
-    }
+    
 
     [Command(requiresAuthority = false)]
-    public void EditSelection(int localPlayerID, int id, NetworkIdentity localPlayer)
+    public void EditSelectionAndPlayCheck(int playerID, CharacterSelection character)
     {
-        if (selected[id] && selectedByPlayer[id] != localPlayer)
+        if (CanBeSelected(playerID, character) == false)
             return;
-        selected[id] = !selected[id];
-        if (selected[id])
+        if (playerSelected[playerID] == character)
         {
-            for(int i =0; i < selectedByPlayer.Count; i++)
-            {
-                if (selectedByPlayer[i] == localPlayer)
-                {
-                    selectedByPlayer[i] = null;
-                    selected[i] = false;
-                }
-            }
-            selectedByPlayer[id] = localPlayer;
-            GameManager.singleton.spawnCharcterID[localPlayerID] = id;
+            playerSelected[playerID].Unselected();
+            playerSelected[playerID] = null;
+            GameManager.singleton.spawnCharcterID[playerID] = -1;
         }
         else
         {
-            selectedByPlayer[id] = null;
+            if (playerSelected[playerID] != null)
+            {
+                playerSelected[playerID].Unselected();
+            }
+            character.Selected();
+            GameManager.singleton.spawnCharcterID[playerID] = character.id;
+            playerSelected[playerID] = character;
         }
+        PlayCheck();
+    }
+
+    private bool CanBeSelected(int playerID, CharacterSelection character)
+    {
+        for(int i = 0; i < playerSelected.Count; i++)
+        {
+            if(playerSelected[i] == character && i != playerID)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private void PlayCheck()
+    {
+        if(playerSelected[0] != null && playerSelected[1] != null)
+        {
+            SetPlayButtonActiveState(true);
+        }
+        else
+        {
+            SetPlayButtonActiveState(false);
+        }
+    }
+
+    [ClientRpc]
+    private void SetPlayButtonActiveState(bool activeState)
+    {
+        playButton.SetActive(activeState);
     }
 }

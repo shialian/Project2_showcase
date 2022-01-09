@@ -11,6 +11,14 @@ public class StartMenu : MonoBehaviour
         characterSelection.transform.position = new Vector3(0, 0, 1000000f);
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            EnterCharacterSelection();
+        }
+    }
+
     public void EnterCharacterSelection()
     {
         this.gameObject.SetActive(false);

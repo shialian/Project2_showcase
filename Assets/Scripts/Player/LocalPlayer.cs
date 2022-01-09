@@ -70,7 +70,7 @@ public class LocalPlayer : NetworkBehaviour
 
     private void Update()
     {
-        if(OVRInput.GetDown(OVRInput.Button.One, OVRInput.Controller.RTouch) && GameManager.singleton.isEnding == false)
+        if (OVRInput.GetDown(OVRInput.Button.One, OVRInput.Controller.RTouch) && GameManager.singleton.isEnding == false)
         {
             if (guideMap.activeSelf == false)
             {
@@ -97,13 +97,16 @@ public class LocalPlayer : NetworkBehaviour
                 SetUITransform(annocements.transform);
             }
         }
-        if(guideMap.activeSelf || dialogue.activeSelf || annocements.activeSelf || showLaserBeam)
+        if (isLocalPlayer)
         {
-            laserBeam.SetActive(true);
-        }
-        else
-        {
-            laserBeam.SetActive(false);
+            if (guideMap.activeSelf || dialogue.activeSelf || annocements.activeSelf || showLaserBeam)
+            {
+                laserBeam.SetActive(true);
+            }
+            else
+            {
+                laserBeam.SetActive(false);
+            }
         }
         if(isLocalPlayer && cuiInputModule.OculusCameraRig == null)
         {
@@ -128,10 +131,5 @@ public class LocalPlayer : NetworkBehaviour
     public void StartGame()
     {
         GetComponent<OVRPlayerController>().enabled = true;
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        Debug.LogError(collision.collider);
     }
 }
