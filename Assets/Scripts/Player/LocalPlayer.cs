@@ -64,7 +64,7 @@ public class LocalPlayer : NetworkBehaviour
             laserBeam.SetActive(true);
 
             cuiInputModule = GameObject.Find("EventSystem").GetComponent<CurvedUIInputModule>();
-            cuiInputModule.OculusCameraRig = GetComponent<OVRCameraRig>();
+            //cuiInputModule.OculusCameraRig = GetComponent<OVRCameraRig>();
         }
     }
 
@@ -108,10 +108,10 @@ public class LocalPlayer : NetworkBehaviour
                 laserBeam.SetActive(false);
             }
         }
-        if(isLocalPlayer && cuiInputModule.OculusCameraRig == null)
-        {
-            cuiInputModule.OculusCameraRig = GetComponent<OVRCameraRig>();
-        }
+        //if(isLocalPlayer && cuiInputModule.OculusCameraRig == null)
+        //{
+        //    cuiInputModule.OculusCameraRig = GetComponent<OVRCameraRig>();
+        //}
     }
 
     public void SetUITransform(Transform ui)

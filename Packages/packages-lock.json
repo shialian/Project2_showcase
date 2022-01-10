@@ -1,12 +1,5 @@
 {
   "dependencies": {
-    "com.autodesk.fbx": {
-      "version": "4.0.1",
-      "depth": 1,
-      "source": "registry",
-      "dependencies": {},
-      "url": "https://packages.unity.com"
-    },
     "com.unity.animation.rigging": {
       "version": "0.2.7-preview",
       "depth": 0,
@@ -40,16 +33,6 @@
       "dependencies": {},
       "url": "https://packages.unity.com"
     },
-    "com.unity.formats.fbx": {
-      "version": "4.0.1",
-      "depth": 0,
-      "source": "registry",
-      "dependencies": {
-        "com.unity.timeline": "1.0.0",
-        "com.autodesk.fbx": "4.0.1"
-      },
-      "url": "https://packages.unity.com"
-    },
     "com.unity.ide.rider": {
       "version": "1.1.4",
       "depth": 0,
@@ -71,15 +54,6 @@
       "depth": 2,
       "source": "registry",
       "dependencies": {},
-      "url": "https://packages.unity.com"
-    },
-    "com.unity.postprocessing": {
-      "version": "3.0.3",
-      "depth": 0,
-      "source": "registry",
-      "dependencies": {
-        "com.unity.modules.physics": "1.0.0"
-      },
       "url": "https://packages.unity.com"
     },
     "com.unity.subsystemregistration": {
@@ -141,7 +115,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.xr.management": {
-      "version": "4.0.1",
+      "version": "4.2.1",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -162,13 +136,6 @@
         "com.unity.ugui": "1.0.0"
       },
       "url": "https://packages.unity.com"
-    },
-    "com.veriorpies.parrelsync": {
-      "version": "https://github.com/VeriorPies/ParrelSync.git?path=/ParrelSync",
-      "depth": 0,
-      "source": "git",
-      "dependencies": {},
-      "hash": "efac099e5a7a373b6ea961cc0b8aaebe059ab1c8"
     },
     "com.unity.modules.ai": {
       "version": "1.0.0",
